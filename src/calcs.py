@@ -18,6 +18,9 @@ def _calc_probability(h1, h2, *args, **kwargs):
     assert h1 > 0 and h2 > 0
     # difference of the HeLO scores
     diff = h1 - h2
+    # make sure not to exceed the maximum difference of 400
+    if diff > 400:
+        diff = 400
     # round the probability to three decimal places
     prob = round(0.5*(math.erf(diff/400) + 1), 3)
     return prob, 1 - prob
