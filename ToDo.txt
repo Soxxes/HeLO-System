@@ -3,3 +3,6 @@
 - admin-mode im UI mit switch button -> superuser-mode an: superuser Daten verwenden (wenn korrekt eingegeben)
                                      -> superuser-mode aus: public user  verwenden
 - DB class erweitern, um alle Attribute aus dem doc template zu bekommen
+- doppelte Eintragung von beiden Mannschaften vermeiden
+- ständig wechselender Auth code (obiger Punkt dadurch vermeidbar)
+- alle Mannschaft in Liste statt Input-Feld
