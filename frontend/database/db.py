@@ -30,4 +30,21 @@ class DB:
             return True
         else:
             return False
+
+    def update_scores(self, name1, name2, auth, new_score1, new_score2):
+        # auth must match with auth of name1's team
+        result = self.collection.find_one({"name": name1})
+        if result["auth"] == auth:
+            # filters
+            f1 = {"name": name1}
+            f2 = {"name": name2}
+            # new values
+            new_value1 = {"$set": {"score": new_score1}}
+            new_value2 = {"$set": {"score": new_score2}}
+            # update documents
+            self.collection.update_one(f1, new_value1)
+            self.collection.update_one(f2, new_value2)
+            return True
+        else:
+            return False
  

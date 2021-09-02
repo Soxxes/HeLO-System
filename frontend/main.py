@@ -4,6 +4,7 @@ from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty
 from database.db import DB
+from src.calcs import calc_new_score
 
 
 class MyBoxLayout(BoxLayout):
@@ -39,10 +40,11 @@ class MainWidget(Widget):
 
     def calc_and_send(self, name1, name2, auth, game_score):
         # get scores by names
+        s1, s2 = self._get_scores(name1, name2)
         # make calcs with scores and game score
-        new_score1 = 777
+        new_score1, new_score2 = calc_new_score(s1, s2, game_score)
         # update db with auth and new score
-        res = self.db.update(name1, auth, new_score1)
+        res = self.db.update_scores(name1, name2, auth, new_score1, new_score2)
         if res:
             # display new scores
             self.set_scores_label(name1, name2)
