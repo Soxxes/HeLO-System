@@ -12,9 +12,9 @@ scores = db.scores
 
 # first document to insert into the collection
 # first_doc = {
-#     "name": "38.",
-#     "auth": "63817",
-#     "score": 575
+#     "name": "CoRe",
+#     "auth": "235711",
+#     "score": 847
 # }
 
 # insert doc to collection
