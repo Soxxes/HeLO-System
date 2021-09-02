@@ -1,0 +1,75 @@
+# MyBoxLayout:
+
+# <MyBoxLayout>:
+#     orientation: "vertical"
+#     Label:
+#         text: "Welcome to the HeLO-System!"
+#         size_hint: 0.1, 0.2
+#         pos_hint: {"center_x": 0.5}
+
+#     BoxLayout:
+#         orientation: "horizontal"
+#         Label:
+#             text: "Name of Team 1"
+#         TextInput:
+#             multiline: False
+#     Button:
+#         text: "Send & Calc"
+#         size_hint: 0.2, 0.2
+#         pos_hint: {"center_x": 0.5}
+
+<MainWidget>:
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+
+        Label:
+            text: "Welcome to the HeLO-System!"
+            size_hint: 0.1, 0.2
+            pos_hint: {"center_x": 0.5}
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Name of Team 1:"
+            TextInput:
+                multiline: False
+            Label:
+                text: "Name of Team 2:"
+            TextInput:
+                multiline: False
+            Label:
+                text: "Authentication code:"
+            TextInput:
+                multiline: False
+        
+        GridLayout:
+            cols: 2
+            BoxLayout:
+                orientation: "vertical"
+                AnchorLayout:
+                    anchor_x: "center"
+                    anchor_y: "bottom"
+                    Button:
+                    # (Requires Authentication)
+                        text: "Send & Calc"
+                        size_hint: 0.3, 0.3
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                AnchorLayout:
+                    anchor_x: "center"
+                    anchor_y: "center"
+                    Button:
+                        text: "Get HeLO Score"
+                        size_hint: 0.3, 0.3
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            GridLayout:
+                cols: 2
+                Label:
+                    text: "(New) HeLO Score Team 1:"
+                Label:
+                    text: "513"
+                Label:
+                    text: "(New) HeLO Score Team 2:"
+                Label:
+                    text: "461"
+        
