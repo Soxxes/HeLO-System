@@ -37,9 +37,22 @@ class MainWidget(Widget):
         self.helo_score_team1 = str(s1) # s1
         self.helo_score_team2 = str(s2) # s2
 
-    def calc_and_send(self, name1, name2, auth):
-        # get scores here
-        pass
+    def calc_and_send(self, name1, name2, auth, game_score):
+        # get scores by names
+        # make calcs with scores and game score
+        new_score1 = 777
+        # update db with auth and new score
+        res = self.db.update(name1, auth, new_score1)
+        if res:
+            # display new scores
+            self.set_scores_label(name1, name2)
+        else:
+            # raise error, because update failed
+            print("Auth failed")
+
+    def __del__(self):
+        # close connection to data base
+        self.db.client.close()
 
 
 class HeLOApp(App):

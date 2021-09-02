@@ -16,3 +16,18 @@ class DB:
     def get_score(self, name):
         result = self.collection.find_one({"name": name})
         return result["score"]
+
+    def update(self, name, auth, new_score):
+        # check if auth is correct
+        result = self.collection.find_one({"name": name})
+        if result["auth"] == auth:
+            # filter
+            f = {"name": name}
+            # set new value
+            new_value = {"$set": {"score": new_score}}
+            # update document
+            self.collection.update_one(f, new_value)
+            return True
+        else:
+            return False
+ 

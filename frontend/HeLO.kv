@@ -48,7 +48,14 @@
                 password: True
                 password_mask: "*"
                 #padding: [6, 6, 6, 6]
+            Label:
+                text: "Score:"
+            TextInput:
+                id: game_score
+                multiline: False
+                text: "e.g. '4-1'"
         
+        # Buttons
         GridLayout:
             cols: 2
             BoxLayout:
@@ -61,7 +68,7 @@
                         text: "Calc & Send"
                         size_hint: 0.3, 0.3
                         pos_hint: {"center_x": 0.5, "center_y": 0.5}
-                        on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text)
+                        on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text)
                 AnchorLayout:
                     anchor_x: "center"
                     anchor_y: "center"
@@ -70,6 +77,8 @@
                         size_hint: 0.3, 0.3
                         pos_hint: {"center_x": 0.5, "center_y": 0.5}
                         on_press: root.set_scores_label(name_team_one.text, name_team_two.text)
+
+            # Labels for the (new) score
             GridLayout:
                 cols: 2
                 Label:
