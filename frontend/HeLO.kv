@@ -33,15 +33,21 @@
             Label:
                 text: "Name of Team 1:"
             TextInput:
+                id: name_team_one
                 multiline: False
             Label:
                 text: "Name of Team 2:"
             TextInput:
+                id: name_team_two
                 multiline: False
             Label:
                 text: "Authentication code:"
             TextInput:
+                id: auth
                 multiline: False
+                password: True
+                password_mask: "*"
+                #padding: [6, 6, 6, 6]
         
         GridLayout:
             cols: 2
@@ -52,9 +58,10 @@
                     anchor_y: "bottom"
                     Button:
                     # (Requires Authentication)
-                        text: "Send & Calc"
+                        text: "Calc & Send"
                         size_hint: 0.3, 0.3
                         pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text)
                 AnchorLayout:
                     anchor_x: "center"
                     anchor_y: "center"
@@ -62,14 +69,15 @@
                         text: "Get HeLO Score"
                         size_hint: 0.3, 0.3
                         pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        on_press: root.set_scores_label(name_team_one.text, name_team_two.text)
             GridLayout:
                 cols: 2
                 Label:
                     text: "(New) HeLO Score Team 1:"
                 Label:
-                    text: "513"
+                    text: root.helo_score_team1
                 Label:
                     text: "(New) HeLO Score Team 2:"
                 Label:
-                    text: "461"
+                    text: root.helo_score_team2
         
