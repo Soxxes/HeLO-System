@@ -7,7 +7,7 @@ COLLECTION = "scores"
 
 
 class AuthError(Exception):
-    msg = "Auth failed"
+    msg = "Auth failed: authentication code is incorrect"
     
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
@@ -28,7 +28,11 @@ class DB:
     def get_score(self, name):
         try:
             result = self.collection.find_one({"name": name})
-            return result["score"], None
+            # if result is None, no document were found
+            if result is not None:
+                return result["score"], None
+            else:
+                return None, f"No document named {name} found in data base."
         except OperationFailure as e:
             return None, e
 
@@ -67,5 +71,5 @@ class DB:
             else:
                 return AuthError()
         except OperationFailure as e:
-            return e
+            return "User doesn't exist or isn't allowed to to perform that operation."
  

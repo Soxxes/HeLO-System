@@ -34,7 +34,6 @@ class MainWidget(Widget):
 
     def _alert_popup(self, error):
         layout = GridLayout(cols=1)
-        layout.size = ["50dp", "50dp"]
         popup_label = Label(text=str(error))
         close_button = Button(text="Close")
 
@@ -48,6 +47,7 @@ class MainWidget(Widget):
     
     
     def _get_scores(self, name1, name2):
+        error = None
         # make sure name1 is not empty
         if name1 != "":
             s1, error = app.db.get_score(name1)
