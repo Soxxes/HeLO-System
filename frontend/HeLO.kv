@@ -48,6 +48,7 @@
         BoxLayout:
             Button:
                 text: "Submit"
+                on_press: root.submit(username.text, password.text)
 
 
 <MainWidget>:
@@ -62,11 +63,16 @@
 
         BoxLayout:
             orientation: "horizontal"
-            Switch:
-                id: superuser_switch
-                on_active: root.on_switch_active(self)
-            Label:
-                text: "Superuser Mode"
+            # Switch:
+            #     id: superuser_switch
+            #     on_active: root.on_switch_active(self)
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    text: "current user:"
+                Label:
+                    id: current_user
+                    text: app.username
             Button:
                 text: "Switch to Login Page"
                 on_press: root.switch_to_superuser_page("Superuser")
@@ -91,7 +97,7 @@
                 password: True
                 password_mask: "*"
                 #padding: [6, 6, 6, 6]
-                disabled: root.superuser_disabled
+                #disabled: root.superuser_disabled
             Label:
                 text: "Score:"
             TextInput:
@@ -113,7 +119,7 @@
                         size_hint: 0.3, 0.3
                         pos_hint: {"center_x": 0.5, "center_y": 0.5}
                         on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text)
-                        disabled: root.superuser_disabled
+                        #disabled: root.superuser_disabled
                 AnchorLayout:
                     anchor_x: "center"
                     anchor_y: "center"

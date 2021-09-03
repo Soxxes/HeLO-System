@@ -1,8 +1,20 @@
 from pymongo import MongoClient, collection
+from pymongo.errors import OperationFailure
 
 CLUSTER = "cluster0"
 DB_NAME = "gettingStarted"
 COLLECTION = "scores"
+
+
+class AuthError(Exception):
+    msg = "Auth failed"
+    
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+    def __str__(self) -> str:
+        return self.msg
+
 
 class DB:
 
@@ -14,8 +26,11 @@ class DB:
         self.collection = self.db[COLLECTION]
 
     def get_score(self, name):
-        result = self.collection.find_one({"name": name})
-        return result["score"]
+        try:
+            result = self.collection.find_one({"name": name})
+            return result["score"], None
+        except OperationFailure as e:
+            return None, e
 
     def update(self, name, auth, new_score):
         # check if auth is correct
@@ -25,26 +40,32 @@ class DB:
             f = {"name": name}
             # set new value
             new_value = {"$set": {"score": new_score}}
-            # update document
-            self.collection.update_one(f, new_value)
-            return True
+            try:
+                # update document
+                self.collection.update_one(f, new_value)
+                return None
+            except OperationFailure as e:
+                return e
         else:
-            return False
+            return AuthError()
 
     def update_scores(self, name1, name2, auth, new_score1, new_score2):
-        # auth must match with auth of name1's team
-        result = self.collection.find_one({"name": name1})
-        if result["auth"] == auth:
-            # filters
-            f1 = {"name": name1}
-            f2 = {"name": name2}
-            # new values
-            new_value1 = {"$set": {"score": new_score1}}
-            new_value2 = {"$set": {"score": new_score2}}
-            # update documents
-            self.collection.update_one(f1, new_value1)
-            self.collection.update_one(f2, new_value2)
-            return True
-        else:
-            return False
+        try:
+            # auth must match with auth of name1's team
+            result = self.collection.find_one({"name": name1})
+            if result["auth"] == auth:
+                # filters
+                f1 = {"name": name1}
+                f2 = {"name": name2}
+                # new values
+                new_value1 = {"$set": {"score": new_score1}}
+                new_value2 = {"$set": {"score": new_score2}}
+                # update documents
+                self.collection.update_one(f1, new_value1)
+                self.collection.update_one(f2, new_value2)
+                return None
+            else:
+                return AuthError()
+        except OperationFailure as e:
+            return e
  
