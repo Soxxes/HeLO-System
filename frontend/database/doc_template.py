@@ -5,5 +5,5 @@ doc = {
     "games": 13,                            # number of games played
     "history": ["38.", "46."],              # list of past opponents
     "score": 534,                           # current HeLO score
-    "check_sum": "random"                   # random number for a check sum
+    "checksum": "random"                   # random number for a check sum
 }

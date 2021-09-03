@@ -18,7 +18,6 @@ class MyBoxLayout(BoxLayout):
 
 
 class SuperUserWindow(Widget):
-    checksum_disabled = BooleanProperty(True)
     
     def switch_to_main(self, page_name):
         app.screen_manager.current = page_name
@@ -28,11 +27,11 @@ class SuperUserWindow(Widget):
         # if username or password is wrong, this error will be catched later
         if username != "" and password != "":
             app.change_db_user(username, password)
-            self.checksum_disabled = False
             app.main_page.ids["current_user"].text = username
 
-    def get_checksum(self):
-        pass
+    def get_checksum(self, label, auth):
+        checksum = app.db.get_checksum(auth)
+        label.text = str(checksum)
 
 
 class MainWidget(Widget):
@@ -108,6 +107,7 @@ class MainWidget(Widget):
         check = app.db.check_superuser(auth)
         if check is None:
             app.screen_manager.current = page_name
+            app.auth = auth
         else:
             self._alert_popup(check)
 
@@ -123,6 +123,7 @@ class MainWidget(Widget):
 class HeLOApp(App):
     username = "Public"
     password = "6h2WPva5g"
+    auth = ""
     db = DB(username, password)
 
     def build(self):

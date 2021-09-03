@@ -1,5 +1,6 @@
 from pymongo import MongoClient, collection
 from pymongo.errors import OperationFailure
+import random
 
 CLUSTER = "cluster0"
 DB_NAME = "gettingStarted"
@@ -77,3 +78,13 @@ class DB:
         result = self.collection.find_one({"auth": auth})
         if result is None:
             return AuthError()
+
+    def get_checksum(self, auth):
+        result = self.collection.find_one({"auth": auth})
+        return result["checksum"]
+        # no AuthError() should be raised here, because this method
+        # only gets called when check_superuser() were survived
+
+    def _change_checksum(self, checksum):
+        #checksum = random.randrange(10000, 100000)
+        pass

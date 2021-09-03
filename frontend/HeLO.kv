@@ -53,10 +53,11 @@
         # CheckSum
         GridLayout:
             cols: 2
-            disabled: root.checksum_disabled
             Button:
                 text: "Get CheckSum"
+                on_press: root.get_checksum(check_sum_label, app.auth)
             Label:
+                id: check_sum_label
                 text: ""
 
 
