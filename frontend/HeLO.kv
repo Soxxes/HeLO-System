@@ -18,7 +18,7 @@
 #         size_hint: 0.2, 0.2
 #         pos_hint: {"center_x": 0.5}
 
-<SuperUserLogIn>:
+<SuperUserWindow>:
     GridLayout:
         cols: 1
         size: root.width, root.height
@@ -50,6 +50,15 @@
                 text: "Submit"
                 on_press: root.submit(username.text, password.text)
 
+        # CheckSum
+        GridLayout:
+            cols: 2
+            disabled: root.checksum_disabled
+            Button:
+                text: "Get CheckSum"
+            Label:
+                text: ""
+
 
 <MainWidget>:
     GridLayout:
@@ -74,8 +83,8 @@
                     id: current_user
                     text: app.username
             Button:
-                text: "Switch to Login Page"
-                on_press: root.switch_to_superuser_page("Superuser")
+                text: "Switch to Superuser Page"
+                on_press: root.switch_to_superuser_page("Superuser", auth.text)
 
         GridLayout:
             cols: 2

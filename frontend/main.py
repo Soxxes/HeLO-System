@@ -17,14 +17,19 @@ class MyBoxLayout(BoxLayout):
         super().__init__(**kwargs)
 
 
-class SuperUserLogIn(Widget):
+class SuperUserWindow(Widget):
+    checksum_disabled = BooleanProperty(True)
     
     def switch_to_main(self, page_name):
         app.screen_manager.current = page_name
 
     def submit(self, username, password):
         app.change_db_user(username, password)
+        self.checksum_disabled = False
         app.main_page.ids["current_user"].text = username
+
+    def get_checksum(self):
+        pass
 
 
 class MainWidget(Widget):
@@ -96,8 +101,12 @@ class MainWidget(Widget):
         else:
             self.superuser_disabled = True
 
-    def switch_to_superuser_page(self, page_name):
-        app.screen_manager.current = page_name
+    def switch_to_superuser_page(self, page_name, auth):
+        check = app.db.check_superuser(auth)
+        if check is None:
+            app.screen_manager.current = page_name
+        else:
+            self._alert_popup(check)
 
     def __del__(self):
         # close connection to data base
@@ -123,7 +132,7 @@ class HeLOApp(App):
         self.screen_manager.add_widget(screen)
 
         # super user login
-        self.superuser_page = SuperUserLogIn()
+        self.superuser_page = SuperUserWindow()
         screen = Screen(name="Superuser")
         screen.add_widget(self.superuser_page)
         self.screen_manager.add_widget(screen)

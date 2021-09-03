@@ -73,3 +73,7 @@ class DB:
         except OperationFailure as e:
             return "User doesn't exist or isn't allowed to to perform that operation."
  
+    def check_superuser(self, auth):
+        result = self.collection.find_one({"auth": auth})
+        if result is None:
+            return AuthError()
