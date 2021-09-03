@@ -108,6 +108,8 @@ class MainWidget(Widget):
         if check is None:
             app.screen_manager.current = page_name
             app.auth = auth
+        elif auth == "":
+            self._alert_popup("Please enter an authentication code.")
         else:
             self._alert_popup(check)
 
