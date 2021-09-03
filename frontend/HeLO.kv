@@ -44,6 +44,8 @@
                 text: "Password"
             TextInput:
                 id: password
+                password: True
+                password_mask: "*"
         
         BoxLayout:
             Button:
@@ -90,6 +92,15 @@
         GridLayout:
             cols: 2
             Label:
+                text: "Authentication code:"
+            TextInput:
+                id: auth
+                multiline: False
+                password: True
+                password_mask: "*"
+                #padding: [6, 6, 6, 6]
+                #disabled: root.superuser_disabled
+            Label:
                 text: "Name of Team 1:"
             TextInput:
                 id: name_team_one
@@ -100,20 +111,16 @@
                 id: name_team_two
                 multiline: False
             Label:
-                text: "Authentication code:"
-            TextInput:
-                id: auth
-                multiline: False
-                password: True
-                password_mask: "*"
-                #padding: [6, 6, 6, 6]
-                #disabled: root.superuser_disabled
-            Label:
                 text: "Score:"
             TextInput:
                 id: game_score
                 multiline: False
                 text: "e.g. '4-1'"
+            Label:
+                text: "Checksum of opponent:"
+            TextInput:
+                id: check_sum_input
+                multiline: False
         
         # Buttons
         GridLayout:
@@ -124,11 +131,11 @@
                     anchor_x: "center"
                     anchor_y: "bottom"
                     Button:
-                    # (Requires Authentication)
+                    # (Requires Authentication and Checksum)
                         text: "Calc & Send"
                         size_hint: 0.3, 0.3
                         pos_hint: {"center_x": 0.5, "center_y": 0.5}
-                        on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text)
+                        on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text, check_sum_input.text)
                         #disabled: root.superuser_disabled
                 AnchorLayout:
                     anchor_x: "center"

@@ -8,7 +8,7 @@ COLLECTION = "scores"
 
 
 class AuthError(Exception):
-    msg = "Auth failed: authentication code is incorrect"
+    msg = "Auth failed: authentication code or checksum is incorrect"
     
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
@@ -54,11 +54,13 @@ class DB:
         else:
             return AuthError()
 
-    def update_scores(self, name1, name2, auth, new_score1, new_score2):
+    def update_scores(self, name1, name2, auth, new_score1, new_score2, checksum):
         try:
             # auth must match with auth of name1's team
             result = self.collection.find_one({"name": name1})
-            if result["auth"] == auth:
+            # oppenent's document
+            opp = self.collection.find_one({"name": name2})
+            if result["auth"] == auth and opp["checksum"] == checksum:
                 # filters
                 f1 = {"name": name1}
                 f2 = {"name": name2}
@@ -68,6 +70,8 @@ class DB:
                 # update documents
                 self.collection.update_one(f1, new_value1)
                 self.collection.update_one(f2, new_value2)
+                # change opponents checksum
+                self._change_checksum(f2)
                 return None
             else:
                 return AuthError()
@@ -85,6 +89,6 @@ class DB:
         # no AuthError() should be raised here, because this method
         # only gets called when check_superuser() were survived
 
-    def _change_checksum(self, checksum):
-        #checksum = random.randrange(10000, 100000)
-        pass
+    def _change_checksum(self, opp_filter):
+        new_checksum = random.randrange(10000, 100000)
+        self.collection.update_one(opp_filter, {"$set": {"checksum": new_checksum}})
