@@ -24,9 +24,12 @@ class SuperUserWindow(Widget):
         app.screen_manager.current = page_name
 
     def submit(self, username, password):
-        app.change_db_user(username, password)
-        self.checksum_disabled = False
-        app.main_page.ids["current_user"].text = username
+        # make sure TextInputs are not empty
+        # if username or password is wrong, this error will be catched later
+        if username != "" and password != "":
+            app.change_db_user(username, password)
+            self.checksum_disabled = False
+            app.main_page.ids["current_user"].text = username
 
     def get_checksum(self):
         pass
