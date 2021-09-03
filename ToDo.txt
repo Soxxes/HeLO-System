@@ -9,3 +9,4 @@
 - Anzahl Spieler in Berechnung einbeziehen
 - statt Checksum Ergebnis-Bestätigung
 - DropDown-Liste mit Comp-Faktor
+- zweite DB für Historie (Gegner+Ergebnis, HeLO-Zahl-Historie)
