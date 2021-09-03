@@ -8,7 +8,16 @@ COLLECTION = "scores"
 
 
 class AuthError(Exception):
-    msg = "Auth failed: authentication code or checksum is incorrect"
+    msg = "Auth failed: authentication code is incorrect"
+    
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+    def __str__(self) -> str:
+        return self.msg
+
+class ChecksumError(Exception):
+    msg = "Incorrect Checksum"
     
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
@@ -37,7 +46,7 @@ class DB:
         except OperationFailure as e:
             return None, "User doesn't exist or isn't allowed to to perform that operation."
 
-    def update(self, name, auth, new_score):
+    def __update(self, name, auth, new_score):
         # check if auth is correct
         result = self.collection.find_one({"name": name})
         if result["auth"] == auth:
@@ -60,7 +69,10 @@ class DB:
             result = self.collection.find_one({"name": name1})
             # oppenent's document
             opp = self.collection.find_one({"name": name2})
-            if result["auth"] == auth and opp["checksum"] == checksum:
+            # if checksums don't match return ChecksumError()
+            if opp["checksum"] != checksum:
+                return ChecksumError()
+            if result["auth"] == auth:
                 # filters
                 f1 = {"name": name1}
                 f2 = {"name": name2}
