@@ -2,9 +2,10 @@ import kivy
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, BooleanProperty
 from database.db import DB
 from src.calcs import calc_new_score
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 
 class MyBoxLayout(BoxLayout):
@@ -12,7 +13,14 @@ class MyBoxLayout(BoxLayout):
         super().__init__(**kwargs)
 
 
+class SuperUserLogIn(Widget):
+    
+    def switch_to_main(self, page_name):
+        app.screen_manager.current = page_name
+
+
 class MainWidget(Widget):
+    superuser_disabled = BooleanProperty(True)
     helo_score_team1 = StringProperty("")
     helo_score_team2 = StringProperty("")
     db = DB("Marc", "jK5%oWq")
@@ -52,14 +60,41 @@ class MainWidget(Widget):
             # raise error, because update failed
             print("Auth failed")
 
+    def on_switch_active(self, widget):
+        if widget.active:
+            self.superuser_disabled = False
+        else:
+            self.superuser_disabled = True
+
+    def switch_to_superuser_page(self, page_name):
+        app.screen_manager.current = page_name
+
     def __del__(self):
         # close connection to data base
         self.db.client.close()
 
 
+# class HeLOApp(App):
+#     def build(self):
+#         return MainWidget()
+
 class HeLOApp(App):
     def build(self):
-        return MainWidget()
+        self.screen_manager = ScreenManager()
+
+        # main page
+        self.main_page = MainWidget()
+        screen = Screen(name="Main")
+        screen.add_widget(self.main_page)
+        self.screen_manager.add_widget(screen)
+
+        # super user login
+        self.superuser_page = SuperUserLogIn()
+        screen = Screen(name="Superuser")
+        screen.add_widget(self.superuser_page)
+        self.screen_manager.add_widget(screen)
+
+        return self.screen_manager
 
 
 if __name__ == "__main__":

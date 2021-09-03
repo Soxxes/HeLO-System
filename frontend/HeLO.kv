@@ -18,6 +18,38 @@
 #         size_hint: 0.2, 0.2
 #         pos_hint: {"center_x": 0.5}
 
+<SuperUserLogIn>:
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+
+        BoxLayout:
+            orientation: "horizontal"
+            Button:
+                text: "Back"
+                on_press: root.switch_to_main("Main")
+            Label:
+                text: "SuperUser Login"
+                #size_hint: 0.1, 0.2
+                pos_hint: {"center_x": 0.5}
+
+        # Login for Superuser
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Username"
+            TextInput:
+                id: username
+            Label:
+                text: "Password"
+            TextInput:
+                id: password
+        
+        BoxLayout:
+            Button:
+                text: "Submit"
+
+
 <MainWidget>:
     GridLayout:
         cols: 1
@@ -27,6 +59,17 @@
             text: "Welcome to the HeLO-System!"
             size_hint: 0.1, 0.2
             pos_hint: {"center_x": 0.5}
+
+        BoxLayout:
+            orientation: "horizontal"
+            Switch:
+                id: superuser_switch
+                on_active: root.on_switch_active(self)
+            Label:
+                text: "Superuser Mode"
+            Button:
+                text: "Switch to Login Page"
+                on_press: root.switch_to_superuser_page("Superuser")
 
         GridLayout:
             cols: 2
@@ -48,6 +91,7 @@
                 password: True
                 password_mask: "*"
                 #padding: [6, 6, 6, 6]
+                disabled: root.superuser_disabled
             Label:
                 text: "Score:"
             TextInput:
@@ -69,6 +113,7 @@
                         size_hint: 0.3, 0.3
                         pos_hint: {"center_x": 0.5, "center_y": 0.5}
                         on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text)
+                        disabled: root.superuser_disabled
                 AnchorLayout:
                     anchor_x: "center"
                     anchor_y: "center"
