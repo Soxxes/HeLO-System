@@ -48,6 +48,8 @@ def calc_new_score(h1, h2, score, a1=40, a2=40, c=1):
     prob1, prob2 = _calc_probability(h1, h2)
     # casting the score from a "X-Y" string into integer
     points1, points2 = int(score.split("-")[0]), int(score.split("-")[1])
+    # check if points don't exceed maximum points, which are possible in HLL
+    assert points1 + points2 <= 5
     # calulate the new HeLO scores
     h1_new = h1 + a1 * c * (points1 / 5 - prob1)
     h2_new = h2 + a2 * c * (points2 / 5 - prob2)
