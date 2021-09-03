@@ -22,16 +22,18 @@
     GridLayout:
         cols: 1
         size: root.width, root.height
+        padding: 10
+        spacing: 10
 
-        BoxLayout:
+        RelativeLayout:
             orientation: "horizontal"
             # go back to main window
             Button:
                 #text: "Back"
                 on_press: root.on_back_button()
                 on_release: root.switch_to_main("Main")
-                #size_hint: 0.25, 0.5
-                pos_hint: {"center_y": .5, "center_x": .5}
+                size_hint: 0.25, 0.5
+                pos_hint: {"center_y": .5, "center_x": .25}
                 background_color: 0, 0, 0, 0
                 Image:
                     id: back_home_button
@@ -39,38 +41,73 @@
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
             Label:
-                text: "SuperUser Login"
+                text: "Superuser Login"
                 #size_hint: 0.1, 0.2
-                pos_hint: {"center_x": 0.5}
+                pos_hint: {"center_y": .5, "center_x": .75}
+                text_size: self.size
+                font_size: "20dp"
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
 
         # Login for Superuser
         GridLayout:
             cols: 2
             Label:
                 text: "Username"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
             TextInput:
                 id: username
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
             Label:
                 text: "Password"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
             TextInput:
                 id: password
                 password: True
                 password_mask: "*"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
         
-        BoxLayout:
+        RelativeLayout:
             Button:
                 text: "Submit"
                 on_press: root.submit(username.text, password.text)
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+                size_hint: 0.4, 0.3
+                pos_hint: {"center_x": 0.5, "center_y": 0.75}
 
         # CheckSum
         GridLayout:
             cols: 2
-            Button:
-                text: "Get CheckSum"
-                on_press: root.get_checksum(check_sum_label, app.auth)
+            RelativeLayout:
+                Button:
+                    text: "Get Checksum"
+                    on_press: root.get_checksum(check_sum_label, app.auth)
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.4, 0.3
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
             Label:
                 id: check_sum_label
                 text: ""
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
 
 
 <MainWidget>:
