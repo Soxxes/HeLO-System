@@ -100,7 +100,6 @@ class MainWidget(Widget):
             self.set_scores_label(name1, name2)
         else:
             # raise error, because update failed
-            print(error)
             # display error to user
             self._alert_popup(error)
 

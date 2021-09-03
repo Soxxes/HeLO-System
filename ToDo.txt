@@ -6,3 +6,6 @@
 - doppelte Eintragung von beiden Mannschaften vermeiden
 - ständig wechselender Auth code (obiger Punkt dadurch vermeidbar)
 - alle Mannschaft in Liste statt Input-Feld
+- Anzahl Spieler in Berechnung einbeziehen
+- statt Checksum Ergebnis-Bestätigung
+- DropDown-Liste mit Comp-Faktor
