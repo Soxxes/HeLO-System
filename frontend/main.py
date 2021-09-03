@@ -11,7 +11,6 @@ from database.db import DB
 from src.calcs import calc_new_score
 from kivy.uix.screenmanager import ScreenManager, Screen
 
-
 class MyBoxLayout(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -19,7 +18,11 @@ class MyBoxLayout(BoxLayout):
 
 class SuperUserWindow(Widget):
     
+    def on_back_button(self):
+        self.ids.back_home_button.source = "fig/home2_pressed.png"
+
     def switch_to_main(self, page_name):
+        self.ids.back_home_button.source = "fig/home2.png"
         app.screen_manager.current = page_name
 
     def submit(self, username, password):
@@ -40,18 +43,24 @@ class MainWidget(Widget):
     helo_score_team2 = StringProperty("")
 
     def _alert_popup(self, error):
-        layout = GridLayout(cols=1)
-        popup_label = Label(text=str(error))
-        close_button = Button(text="Close")
+        layout = BoxLayout(orientation="vertical")
+        popup_label = Label(text=str(error), font_name="fonts/Eurostile.ttf",
+                                halign="center", valign="middle")
+        #popup_label.text_size = popup_label.size
+        close_button = Button(text="Close", font_name="fonts/Eurostile.ttf",
+                                halign="center", valign="middle",
+                                size_hint=(0.4, 0.3),
+                                pos_hint={"center_x": 0.5})
+        close_button.text_size = close_button.size
 
         layout.add_widget(popup_label)
         layout.add_widget(close_button)
 
-        popup = Popup(title="Alert Message", content=layout)
+        popup = Popup(title="Alert Message", content=layout,
+                        size_hint=(0.4, 0.4))
         popup.open()
 
-        close_button.bind(on_press=popup.dismiss)
-    
+        close_button.bind(on_press=popup.dismiss)    
     
     def _get_scores(self, name1, name2):
         error = None

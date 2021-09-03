@@ -25,9 +25,19 @@
 
         BoxLayout:
             orientation: "horizontal"
+            # go back to main window
             Button:
-                text: "Back"
-                on_press: root.switch_to_main("Main")
+                #text: "Back"
+                on_press: root.on_back_button()
+                on_release: root.switch_to_main("Main")
+                #size_hint: 0.25, 0.5
+                pos_hint: {"center_y": .5, "center_x": .5}
+                background_color: 0, 0, 0, 0
+                Image:
+                    id: back_home_button
+                    source: "fig/home2.png"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
             Label:
                 text: "SuperUser Login"
                 #size_hint: 0.1, 0.2
@@ -67,32 +77,64 @@
     GridLayout:
         cols: 1
         size: root.width, root.height
+        padding: 10
+        spacing: 10
 
         Label:
             text: "Welcome to the HeLO-System!"
             size_hint: 0.1, 0.2
             pos_hint: {"center_x": 0.5}
+            text_size: self.size
+            valign: "middle"
+            halign: "center"
+            font_name: "fonts/Eurostile.ttf"
+            bold: True
 
         BoxLayout:
             orientation: "horizontal"
+            size_hint: 1, 0.3
             # Switch:
             #     id: superuser_switch
             #     on_active: root.on_switch_active(self)
-            BoxLayout:
-                orientation: "vertical"
+            RelativeLayout:
                 Label:
                     text: "current user:"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.5, 0.3
+                    pos_hint: {"center_x": 0.35, "center_y": 0.5}
                 Label:
                     id: current_user
                     text: app.username
-            Button:
-                text: "Switch to Superuser Page"
-                on_press: root.switch_to_superuser_page("Superuser", auth.text)
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.4, 0.3
+                    pos_hint: {"center_x": 0.6, "center_y": 0.5}
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    on_release: root.switch_to_superuser_page("Superuser", auth.text)
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.3, 0.5
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    # backround_color: 0, 0, 0, 1
 
         GridLayout:
             cols: 2
+            spacing: 5
             Label:
                 text: "Authentication code:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
             TextInput:
                 id: auth
                 multiline: False
@@ -100,61 +142,99 @@
                 password_mask: "*"
                 #padding: [6, 6, 6, 6]
                 #disabled: root.superuser_disabled
+                font_name: "fonts/Eurostile.ttf"
             Label:
                 text: "Name of Team 1:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
             TextInput:
                 id: name_team_one
                 multiline: False
+                font_name: "fonts/Eurostile.ttf"
             Label:
                 text: "Name of Team 2:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
             TextInput:
                 id: name_team_two
                 multiline: False
+                font_name: "fonts/Eurostile.ttf"
             Label:
                 text: "Score:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
             TextInput:
                 id: game_score
                 multiline: False
                 text: "e.g. '4-1'"
+                font_name: "fonts/Eurostile.ttf"
             Label:
-                text: "Checksum of opponent:"
+                text: "Checksum of Opponent:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
             TextInput:
                 id: check_sum_input
                 multiline: False
+                font_name: "fonts/Eurostile.ttf"
         
         # Buttons
         GridLayout:
             cols: 2
-            BoxLayout:
-                orientation: "vertical"
-                AnchorLayout:
-                    anchor_x: "center"
-                    anchor_y: "bottom"
-                    Button:
-                    # (Requires Authentication and Checksum)
-                        text: "Calc & Send"
-                        size_hint: 0.3, 0.3
-                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-                        on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text, check_sum_input.text)
-                        #disabled: root.superuser_disabled
-                AnchorLayout:
-                    anchor_x: "center"
-                    anchor_y: "center"
-                    Button:
-                        text: "Get HeLO Score"
-                        size_hint: 0.3, 0.3
-                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-                        on_press: root.set_scores_label(name_team_one.text, name_team_two.text)
+            RelativeLayout:
+                Button:
+                # (Requires Authentication and Checksum)
+                    text: "Calc & Send"
+                    size_hint: 0.4, 0.3
+                    on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text, check_sum_input.text)
+                    #disabled: root.superuser_disabled
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    pos_hint: {"center_x": 0.5, "center_y": 0.3}
+                Button:
+                    text: "Get HeLO Score"
+                    size_hint: 0.4, 0.3
+                    on_press: root.set_scores_label(name_team_one.text, name_team_two.text)
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    pos_hint: {"center_x": 0.5, "center_y": 0.7}
 
             # Labels for the (new) score
             GridLayout:
                 cols: 2
                 Label:
-                    text: "(New) HeLO Score Team 1:"
+                    text: "HeLO Score Team 1:"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
                 Label:
                     text: root.helo_score_team1
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
                 Label:
-                    text: "(New) HeLO Score Team 2:"
+                    text: "HeLO Score Team 2:"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
                 Label:
                     text: root.helo_score_team2
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
         
