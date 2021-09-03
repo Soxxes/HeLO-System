@@ -34,7 +34,7 @@ class DB:
             else:
                 return None, f"No document named {name} found in data base."
         except OperationFailure as e:
-            return None, e
+            return None, "User doesn't exist or isn't allowed to to perform that operation."
 
     def update(self, name, auth, new_score):
         # check if auth is correct

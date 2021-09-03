@@ -1,6 +1,6 @@
-- DataBase User für öffentlichen Zugriff erstellen (nur lesend, public user)
-- DataBase User für superuser erstellen (lesend und schreibend)
-- admin-mode im UI mit switch button -> superuser-mode an: superuser Daten verwenden (wenn korrekt eingegeben)
++ DataBase User für öffentlichen Zugriff erstellen (nur lesend, public user)
++ DataBase User für superuser erstellen (lesend und schreibend)
++ admin-mode im UI mit switch button -> superuser-mode an: superuser Daten verwenden (wenn korrekt eingegeben)
                                      -> superuser-mode aus: public user  verwenden
 - DB class erweitern, um alle Attribute aus dem doc template zu bekommen
 - doppelte Eintragung von beiden Mannschaften vermeiden
