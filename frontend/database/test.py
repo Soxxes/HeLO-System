@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-import certifi
+#import certifi
 
 #client = MongoClient("mongodb+srv://Marc:<password>@cluster0.t145g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 #client = MongoClient("mongodb+srv://Marc:jK5%oWq@cluster0.t145g.mongodb.net/gettingStarted?retryWrites=true&w=majority", tlsCAFile=certifi.where())

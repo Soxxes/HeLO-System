@@ -1,0 +1,6 @@
+# ignore following files
+bin/
+.spec
+android/
+applibs/
+state.db
