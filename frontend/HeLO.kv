@@ -231,8 +231,9 @@
             Spinner:
                 id: comp_factor_spinner
                 text: "competitve match"
-                values: ["friendly match (off season)", "friendly match (on season)", "competitve match", "competitive match (extra sweaty)"]
+                values: ["friendly match (off season)", "friendly match (on season)", "competitive match", "competitive match (extra sweaty)"]
                 font_name: "fonts/Eurostile.ttf"
+                on_text: root.set_comp_factor(self)
             Label:
                 text: "Number of Players:"
                 text_size: self.size

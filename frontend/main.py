@@ -41,6 +41,7 @@ class MainWidget(Widget):
     superuser_disabled = BooleanProperty(True)
     helo_score_team1 = StringProperty("")
     helo_score_team2 = StringProperty("")
+    comp_factor = 1
 
     def _alert_popup(self, error):
         layout = BoxLayout(orientation="vertical")
@@ -88,6 +89,16 @@ class MainWidget(Widget):
         self.helo_score_team1 = str(s1) # s1
         self.helo_score_team2 = str(s2) # s2
 
+    def set_comp_factor(self, widget):
+        if widget.text == "friendly match (off season)":
+            self.comp_factor = 0.5
+        elif widget.text == "friendly match (on season)":
+            self.comp_factor = 0.8
+        elif widget.text == "competitive match":
+            self.comp_factor = 1
+        elif widget.text == "competitive match (extra sweaty)":
+            self.comp_factor = 1.2
+
     def calc_and_send(self, name1, name2, auth, game_score, checksum, n):
         # get scores by names
         s1, s2 = self._get_scores(name1, name2)
@@ -97,6 +108,7 @@ class MainWidget(Widget):
         new_score1, new_score2 = calc_new_score(s1, s2, game_score,
                                                 a1= 40 if number1 < 30 else 20,
                                                 a2= 40 if number2 < 30 else 20,
+                                                c=self.comp_factor,
                                                 number_of_players=n)
         # update db with auth and new score
         error = app.db.update(name1, name2, auth, new_score1, new_score2, int(checksum))
