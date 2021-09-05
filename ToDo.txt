@@ -8,7 +8,8 @@
 (- alle Mannschaft in Liste statt Input-Feld)
 + Anzahl Spieler in Berechnung einbeziehen
 (- statt Checksum Ergebnis-Bestätigung)
-- DropDown-Liste mit Comp-Faktor
++ DropDown-Liste mit Comp-Faktor
 - zweite DB für Historie (Gegner+Ergebnis, HeLO-Zahl-Historie)
 - bei calc & send vorher bestätigen (pop up)
 - split bei unnötigen leerzeichen in der GUI
+- asserts in GUI weiterleiten

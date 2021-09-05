@@ -8,3 +8,10 @@ doc = {
     "checksum": "random",                   # random number for a check sum
     "previous_score": 513                   # old score, before the last game
 }
+
+"""
+bei falscher Eintragung muss Folgendes gemacht werden:
+- alten Score einsetzen
+- history letzten Eintrag löschen
+- games um 1 reduzieren
+"""

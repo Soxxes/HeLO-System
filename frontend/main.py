@@ -100,6 +100,9 @@ class MainWidget(Widget):
             self.comp_factor = 1.2
 
     def calc_and_send(self, name1, name2, auth, game_score, checksum, n):
+        if name1 == "" or name2 == "":
+            self._alert_popup("Please enter the names of the teams.")
+            return
         # get scores by names
         s1, s2 = self._get_scores(name1, name2)
         # get number of games from data base
