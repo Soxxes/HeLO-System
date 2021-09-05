@@ -280,7 +280,7 @@
                 # (Requires Authentication and Checksum)
                     text: "Calc & Send"
                     size_hint: 0.4, 0.3
-                    on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score1.text+"-"+game_score2.text, check_sum_input.text, number_of_players.value)
+                    on_release: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score1.text+"-"+game_score2.text, check_sum_input.text, number_of_players.value)
                     #disabled: root.superuser_disabled
                     text_size: self.size
                     valign: "middle"
@@ -290,7 +290,7 @@
                 Button:
                     text: "Get HeLO Score"
                     size_hint: 0.4, 0.3
-                    on_press: root.set_scores_label(name_team_one.text, name_team_two.text)
+                    on_release: root.set_scores_label(name_team_one.text, name_team_two.text)
                     text_size: self.size
                     valign: "middle"
                     halign: "center"
@@ -327,3 +327,7 @@
                     font_name: "fonts/Eurostile.ttf"
                     bold: True
         
+        Label:
+            text: "HeLO System by Soxxes | version 0.0.1"
+            font_size: "12dp"
+            size_hint: 1, 0.02
