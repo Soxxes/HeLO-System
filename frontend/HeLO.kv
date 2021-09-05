@@ -140,7 +140,7 @@
                     valign: "middle"
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
-                    size_hint: 0.5, 0.3
+                    size_hint: 0.4, 1
                     pos_hint: {"center_x": 0.35, "center_y": 0.5}
                 Label:
                     id: current_user
@@ -166,6 +166,7 @@
         GridLayout:
             cols: 2
             spacing: 5
+            size_hint: 1, 1.2
             Label:
                 text: "Authentication code:"
                 text_size: self.size
@@ -222,6 +223,17 @@
                 multiline: False
                 font_name: "fonts/Eurostile.ttf"
             Label:
+                text: "Competitive Factor"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            Spinner:
+                id: comp_factor_spinner
+                text: "competitve match"
+                values: ["friendly match (off season)", "friendly match (on season)", "competitve match", "competitive match (extra sweaty)"]
+                font_name: "fonts/Eurostile.ttf"
+            Label:
                 text: "Number of Players:"
                 text_size: self.size
                 valign: "middle"
@@ -245,10 +257,12 @@
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
                     size_hint: 0.5, 1
+
         
         # Buttons
         GridLayout:
             cols: 2
+            size_hint: 1, 0.8
             RelativeLayout:
                 Button:
                 # (Requires Authentication and Checksum)
