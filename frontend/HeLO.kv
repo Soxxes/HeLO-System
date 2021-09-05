@@ -207,11 +207,22 @@
                 valign: "middle"
                 halign: "center"
                 font_name: "fonts/Eurostile.ttf"
-            TextInput:
-                id: game_score
-                multiline: False
-                text: "e.g. '4-1'"
-                font_name: "fonts/Eurostile.ttf"
+            BoxLayout:
+                orientation: "horizontal"
+                TextInput:
+                    id: game_score1
+                    multiline: False
+                    font_name: "fonts/Eurostile.ttf"
+                Label:
+                    text: "-"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                TextInput:
+                    id: game_score2
+                    multiline: False
+                    font_name: "fonts/Eurostile.ttf"
             Label:
                 text: "Checksum of Opponent:"
                 text_size: self.size
@@ -269,7 +280,7 @@
                 # (Requires Authentication and Checksum)
                     text: "Calc & Send"
                     size_hint: 0.4, 0.3
-                    on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text, check_sum_input.text, number_of_players.value)
+                    on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score1.text+"-"+game_score2.text, check_sum_input.text, number_of_players.value)
                     #disabled: root.superuser_disabled
                     text_size: self.size
                     valign: "middle"
@@ -301,6 +312,7 @@
                     valign: "middle"
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
+                    bold: True
                 Label:
                     text: "HeLO Score Team 2:"
                     text_size: self.size
@@ -313,4 +325,5 @@
                     valign: "middle"
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
+                    bold: True
         
