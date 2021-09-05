@@ -1,4 +1,4 @@
-from pymongo import MongoClient, collection
+from pymongo import MongoClient, collection, results
 from pymongo.errors import OperationFailure
 import random
 
@@ -46,44 +46,55 @@ class DB:
         except OperationFailure as e:
             return None, "User doesn't exist or isn't allowed to to perform that operation."
 
-    def __update(self, name, auth, new_score):
-        # check if auth is correct
-        result = self.collection.find_one({"name": name})
-        if result["auth"] == auth:
-            # filter
-            f = {"name": name}
-            # set new value
-            new_value = {"$set": {"score": new_score}}
-            try:
-                # update document
-                self.collection.update_one(f, new_value)
-                return None
-            except OperationFailure as e:
-                return e
-        else:
-            return AuthError()
+    def _update_score(self, name, new_score):
+        # filter
+        # f = {"name": name}
+        # set new value
+        new_score = {"$set": {"score": new_score}}
+        # update document
+        # self.collection.update_one(f, new_score)
+        return new_score
 
-    def update_scores(self, name1, name2, auth, new_score1, new_score2, checksum):
+    def update(self, name1, name2, auth, new_score1, new_score2, checksum):
         try:
             # auth must match with auth of name1's team
-            result = self.collection.find_one({"name": name1})
+            team1 = self.collection.find_one({"name": name1})
             # oppenent's document
             opp = self.collection.find_one({"name": name2})
             # if checksums don't match return ChecksumError()
             if opp["checksum"] != checksum:
                 return ChecksumError()
-            if result["auth"] == auth:
-                # filters
+            if team1["auth"] == auth:
+                # -- update documents --
+                # update scores
+                # self._update_score(name1, new_score1)
+                # self._update_score(name2, new_score2)
+                # team1 update
                 f1 = {"name": name1}
+                self.collection.update_many(
+                    f1,
+                    {
+                        self._update_score(name1, new_score1),
+                        self._update_number_of_games(name1),
+                        self._update_history(name1, name2)
+                    }
+                )
+                # opponent (team2) update
                 f2 = {"name": name2}
-                # new values
-                new_value1 = {"$set": {"score": new_score1}}
-                new_value2 = {"$set": {"score": new_score2}}
-                # update documents
-                self.collection.update_one(f1, new_value1)
-                self.collection.update_one(f2, new_value2)
+                self.collection.update_many(
+                    f2,
+                    {
+                        self._update_score(name2, new_score2),
+                        self._update_number_of_games(name1),
+                        self._update_history(name2, name1)
+                    }
+                )
                 # change opponents checksum
-                self._change_checksum(f2)
+                self._update_checksum(name2)
+                # change number of games
+                # self._update_number_of_games(name1)
+                # self._update_number_of_games(name2)
+                # 
                 return None
             else:
                 return AuthError()
@@ -101,6 +112,28 @@ class DB:
         # no AuthError() should be raised here, because this method
         # only gets called when check_superuser() were survived
 
-    def _change_checksum(self, opp_filter):
+    def _update_checksum(self, name):
         new_checksum = random.randrange(10000, 100000)
-        self.collection.update_one(opp_filter, {"$set": {"checksum": new_checksum}})
+        f = {"name": name}
+        self.collection.update_one(f, {"$set": {"checksum": new_checksum}})
+
+    def get_number_of_games(self, name):
+        result = self.collection.find_one({"name": name})
+        return result["games"]
+
+    def _update_number_of_games(self, name):
+        # games = self._get_number_of_games(name)
+        # games += 1
+        # f = {"name": name}
+        new_val = {"$inc": {"games": 1}}
+        # self.collection.update_one(f, new_val)
+        return new_val
+
+    def get_history(self, name):
+        result = self.collection.find_one({"name": name})
+        return result["history"]
+
+    def _update_history(self, name, opp_name):
+        his = self.get_history(name)
+        his.append(opp_name)
+        return {"$set": {"history": his}}

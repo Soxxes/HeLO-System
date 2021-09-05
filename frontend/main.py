@@ -94,7 +94,7 @@ class MainWidget(Widget):
         # make calcs with scores and game score
         new_score1, new_score2 = calc_new_score(s1, s2, game_score, number_of_players=n)
         # update db with auth and new score
-        error = app.db.update_scores(name1, name2, auth, new_score1, new_score2, int(checksum))
+        error = app.db.update(name1, name2, auth, new_score1, new_score2, int(checksum))
         if error is None:
             # display new scores
             self.set_scores_label(name1, name2)
