@@ -3,10 +3,10 @@
 + admin-mode im UI mit switch button -> superuser-mode an: superuser Daten verwenden (wenn korrekt eingegeben)
                                      -> superuser-mode aus: public user  verwenden
 - DB class erweitern, um alle Attribute aus dem doc template zu bekommen
-- doppelte Eintragung von beiden Mannschaften vermeiden
-- ständig wechselender Auth code (obiger Punkt dadurch vermeidbar)
-- alle Mannschaft in Liste statt Input-Feld
-- Anzahl Spieler in Berechnung einbeziehen
++ doppelte Eintragung von beiden Mannschaften vermeiden
++ ständig wechselender Auth code (obiger Punkt dadurch vermeidbar)
+(- alle Mannschaft in Liste statt Input-Feld)
++ Anzahl Spieler in Berechnung einbeziehen
 - statt Checksum Ergebnis-Bestätigung
 - DropDown-Liste mit Comp-Faktor
 - zweite DB für Historie (Gegner+Ergebnis, HeLO-Zahl-Historie)
