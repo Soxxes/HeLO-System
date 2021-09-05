@@ -51,10 +51,9 @@ def calc_new_score(h1, h2, score, a1=40, a2=40, c=1, number_of_players=50):
     # check if points don't exceed maximum points, which are possible in HLL
     assert points1 + points2 <= 5
     # calulate the new HeLO scores
-    print(f"h1: {h1}, a1: {a1}, c: {c}, number of players: {number_of_players}, points: {points1}, prob: {prob1}")
+    # for debugging
+    # print(f"h1: {h1}, a1: {a1}, c: {c}, number of players: {number_of_players}, points: {points1}, prob: {prob1}")
     h1_new = h1 + a1 * c * (math.log(number_of_players/50, a1) + 1) * (points1 / 5 - prob1)
     h2_new = h2 + a2 * c * (math.log(number_of_players/50, a2) + 1) * (points2 / 5 - prob2)
-    # h1_new = h1 + a1 * c * (points1 / 5 - prob1)
-    # h2_new = h2 + a2 * c * (points2 / 5 - prob2)
     return round(h1_new), round(h2_new)
 

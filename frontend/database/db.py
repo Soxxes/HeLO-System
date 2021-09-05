@@ -67,8 +67,6 @@ class DB:
             if team1["auth"] == auth:
                 # -- update documents --
                 # update scores
-                # self._update_score(name1, new_score1)
-                # self._update_score(name2, new_score2)
                 # team1 update
                 f1 = {"name": name1}
                 # all "set" updates
@@ -109,10 +107,6 @@ class DB:
                 )
                 # change opponents checksum
                 self._update_checksum(name2)
-                # change number of games
-                # self._update_number_of_games(name1)
-                # self._update_number_of_games(name2)
-                # 
                 return None
             else:
                 return AuthError()
@@ -142,10 +136,9 @@ class DB:
     def _update_number_of_games(self, name):
         # games = self._get_number_of_games(name)
         # games += 1
-        # f = {"name": name}
+        f = {"name": name}
         new_val = {"$inc": {"games": 1}}
-        # self.collection.update_one(f, new_val)
-        return new_val
+        self.collection.update_one(f, new_val)
 
     def get_history(self, name):
         result = self.collection.find_one({"name": name})
