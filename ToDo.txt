@@ -10,3 +10,4 @@
 - statt Checksum Ergebnis-Bestätigung
 - DropDown-Liste mit Comp-Faktor
 - zweite DB für Historie (Gegner+Ergebnis, HeLO-Zahl-Historie)
+- bei calc & send vorher bestätigen (pop up)

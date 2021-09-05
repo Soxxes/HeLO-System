@@ -221,6 +221,30 @@
                 id: check_sum_input
                 multiline: False
                 font_name: "fonts/Eurostile.ttf"
+            Label:
+                text: "Number of Players:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            BoxLayout:
+                orientation: "horizontal"
+                Slider:
+                    id: number_of_players
+                    min: 3
+                    max: 50
+                    value: 50
+                    step: 1
+                    padding: 10
+                    #on_value: root.on_slider_value(self)
+                Label:
+                    id: number_of_players_label
+                    text: str(number_of_players.value)
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.5, 1
         
         # Buttons
         GridLayout:
@@ -230,7 +254,7 @@
                 # (Requires Authentication and Checksum)
                     text: "Calc & Send"
                     size_hint: 0.4, 0.3
-                    on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text, check_sum_input.text)
+                    on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text, check_sum_input.text, number_of_players.value)
                     #disabled: root.superuser_disabled
                     text_size: self.size
                     valign: "middle"
