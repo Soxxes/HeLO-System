@@ -71,6 +71,10 @@ class MainWidget(Widget):
         else:
             s1 = None
 
+        if error is not None:
+            # display error to user
+            self._alert_popup(error)
+
         # make sure name2 is not empty
         if name2 != "":
             s2, error = app.db.get_score(name2)
@@ -100,6 +104,7 @@ class MainWidget(Widget):
             self.comp_factor = 1.2
 
     def calc_and_send(self, name1, name2, auth, game_score, checksum, n):
+        # check if names have been entered
         if name1 == "" or name2 == "":
             self._alert_popup("Please enter the names of the teams.")
             return

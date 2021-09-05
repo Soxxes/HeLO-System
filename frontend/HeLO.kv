@@ -83,7 +83,7 @@
         RelativeLayout:
             Button:
                 text: "Submit"
-                on_press: root.submit(username.text, password.text)
+                on_press: root.submit(username.text.strip(), password.text.strip())
                 valign: "middle"
                 halign: "center"
                 font_name: "fonts/Eurostile.ttf"
@@ -154,7 +154,7 @@
             RelativeLayout:
                 Button:
                     text: "Login"
-                    on_release: root.switch_to_superuser_page("Superuser", auth.text)
+                    on_release: root.switch_to_superuser_page("Superuser", auth.text.strip())
                     text_size: self.size
                     valign: "middle"
                     halign: "center"
@@ -280,7 +280,7 @@
                 # (Requires Authentication and Checksum)
                     text: "Calc & Send"
                     size_hint: 0.4, 0.3
-                    on_release: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score1.text+"-"+game_score2.text, check_sum_input.text, number_of_players.value)
+                    on_release: root.calc_and_send(name_team_one.text.strip(), name_team_two.text.strip(), auth.text.strip(), game_score1.text.strip()+"-"+game_score2.text.strip(), check_sum_input.text.strip(), number_of_players.value)
                     #disabled: root.superuser_disabled
                     text_size: self.size
                     valign: "middle"
@@ -290,7 +290,7 @@
                 Button:
                     text: "Get HeLO Score"
                     size_hint: 0.4, 0.3
-                    on_release: root.set_scores_label(name_team_one.text, name_team_two.text)
+                    on_release: root.set_scores_label(name_team_one.text.strip(), name_team_two.text.strip())
                     text_size: self.size
                     valign: "middle"
                     halign: "center"
