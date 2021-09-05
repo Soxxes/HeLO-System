@@ -91,8 +91,13 @@ class MainWidget(Widget):
     def calc_and_send(self, name1, name2, auth, game_score, checksum, n):
         # get scores by names
         s1, s2 = self._get_scores(name1, name2)
+        # get number of games from data base
+        number1, number2 = app.db.get_number_of_games(name1), app.db.get_number_of_games(name2)
         # make calcs with scores and game score
-        new_score1, new_score2 = calc_new_score(s1, s2, game_score, number_of_players=n)
+        new_score1, new_score2 = calc_new_score(s1, s2, game_score,
+                                                a1= 40 if number1 < 30 else 20,
+                                                a2= 40 if number2 < 30 else 20,
+                                                number_of_players=n)
         # update db with auth and new score
         error = app.db.update(name1, name2, auth, new_score1, new_score2, int(checksum))
         if error is None:

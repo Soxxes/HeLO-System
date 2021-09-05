@@ -71,22 +71,40 @@ class DB:
                 # self._update_score(name2, new_score2)
                 # team1 update
                 f1 = {"name": name1}
-                self.collection.update_many(
+                # all "set" updates
+                self.collection.update_one(
                     f1,
-                    {
-                        self._update_score(name1, new_score1),
-                        self._update_number_of_games(name1),
-                        self._update_history(name1, name2)
+                    {"$set": {
+                        "score": new_score1,
+                        "history": self._update_history(name1, name2)
+                    }},
+                )
+                # increment updates
+                self.collection.update_one(
+                    f1,
+                    {"$inc":
+                        {
+                            "games": 1
+                        }
                     }
                 )
                 # opponent (team2) update
                 f2 = {"name": name2}
-                self.collection.update_many(
+                # all "set" updates
+                self.collection.update_one(
                     f2,
-                    {
-                        self._update_score(name2, new_score2),
-                        self._update_number_of_games(name1),
-                        self._update_history(name2, name1)
+                    {"$set": {
+                        "score": new_score2,
+                        "history": self._update_history(name2, name1)
+                    }},
+                )
+                # increment updates
+                self.collection.update_one(
+                    f2,
+                    {"$inc":
+                        {
+                            "games": 1
+                        }
                     }
                 )
                 # change opponents checksum
@@ -136,4 +154,4 @@ class DB:
     def _update_history(self, name, opp_name):
         his = self.get_history(name)
         his.append(opp_name)
-        return {"$set": {"history": his}}
+        return his
