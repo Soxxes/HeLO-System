@@ -7,10 +7,13 @@ from kivy.uix.popup import Popup
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty, BooleanProperty
+import json
+from functools import partial
 from database.db import DB
 from src.calcs import calc_new_score
 from kivy.uix.screenmanager import ScreenManager, Screen
-import json
+
+# dependencies: kivy, pymongo
 
 class MyBoxLayout(BoxLayout):
     def __init__(self, **kwargs):
@@ -43,6 +46,7 @@ class MainWidget(Widget):
     helo_score_team1 = StringProperty("")
     helo_score_team2 = StringProperty("")
     comp_factor = 1
+    #confirm = False
 
     def _alert_popup(self, error):
         layout = BoxLayout(orientation="vertical")
@@ -62,8 +66,50 @@ class MainWidget(Widget):
                         size_hint=(0.4, 0.4))
         popup.open()
 
-        close_button.bind(on_press=popup.dismiss)    
+        close_button.bind(on_press=popup.dismiss)
+
+    # def confirm_popup(self, name1, name2, game_score, number_of_players):
+    #     # set confirm to False
+    #     self._set_confirm(False)
+    #     layout = BoxLayout(orientation="vertical")
+    #     popup_label1 = Label(text="Please confirm that this information is correct.",
+    #                             font_name="fonts/Eurostile.ttf",
+    #                             halign="center",
+    #                             valign="middle")
+    #     popup_label2 = Label(text=f"Your team: {name1}\n Opponent: {name2}\n"+
+    #                             f"Played with {number_of_players} players\n"+
+    #                             f"Score: {game_score}",
+    #                             font_name="fonts/Eurostile.ttf",
+    #                             halign="center",
+    #                             valign="middle")
+    #     confirm_button = Button(text="Confirm", font_name="fonts/Eurostile.ttf",
+    #                             halign="center", valign="middle",
+    #                             size_hint=(0.4, 0.4),
+    #                             pos_hint={"center_x": 0.5})
+    #     close_button = Button(text="No! It's not!", font_name="fonts/Eurostile.ttf",
+    #                             halign="center", valign="middle",
+    #                             size_hint=(0.4, 0.4),
+    #                             pos_hint={"center_x": 0.5})
+    #     #close_button.text_size = close_button.size
+
+    #     layout.add_widget(popup_label1)
+    #     layout.add_widget(popup_label2)
+    #     layout2 = BoxLayout(orientation="horizontal")
+    #     layout2.add_widget(confirm_button)
+    #     layout2.add_widget(close_button)
+    #     layout.add_widget(layout2)
+
+    #     popup = Popup(title="Confirm", content=layout,
+    #                     size_hint=(0.4, 0.4))
+    #     popup.open()
+
+    #     close_button.bind(on_press=popup.dismiss)
+    #     confirm_button.bind(on_release=popup.dismiss)
+    #     confirm_button.bind(on_press=self._set_confirm)
     
+    # def _set_confirm(self, state=True):
+    #     self.confirm = state
+
     def _get_scores(self, name1, name2):
         error = None
         # make sure name1 is not empty
@@ -109,6 +155,9 @@ class MainWidget(Widget):
         if name1 == "" or name2 == "":
             self._alert_popup("Please enter the names of the teams.")
             return
+        # confirm information, if not confirmed return and don't send information to db
+        # self._confirm_popup(name1, name2, game_score, n)
+        # if not self.confirm: return
         # get scores by names
         s1, s2 = self._get_scores(name1, name2)
         # get number of games from data base
