@@ -5,3 +5,4 @@ android/
 applibs/
 state.db
 App/
+build/
