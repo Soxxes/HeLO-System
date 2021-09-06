@@ -75,7 +75,8 @@ class DB:
                     f1,
                     {"$set": {
                         "score": new_score1,
-                        "history": self._update_history(name1, name2)
+                        "history": self._update_history(name1, name2),
+                        "score_history": self._update_score_history(name1)
                     }},
                 )
                 # increment updates
@@ -94,7 +95,8 @@ class DB:
                     f2,
                     {"$set": {
                         "score": new_score2,
-                        "history": self._update_history(name2, name1)
+                        "history": self._update_history(name2, name1),
+                        "score_history": self._update_score_history(name2)
                     }},
                 )
                 # increment updates
@@ -148,4 +150,14 @@ class DB:
     def _update_history(self, name, opp_name):
         his = self.get_history(name)
         his.append(opp_name)
+        return his
+
+    def get_score_history(self, name):
+        result = self.collection.find_one({"name": name})
+        return result["score_history"]
+
+    def _update_score_history(self, name):
+        score, _ = self.get_score(name)
+        his = self.get_score_history(name)
+        his.append(score)
         return his
