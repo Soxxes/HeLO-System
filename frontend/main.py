@@ -157,15 +157,18 @@ class MainWidget(Widget):
 #         return MainWidget()
 
 class HeLOApp(App):
-    username = "Public"
-    password = "6h2WPva5g"
+    # username = "Public"
+    # password = "6h2WPva5g"
     auth = ""
     # in case user changed the username in the config file
     with open("config.json", "r") as config:
         config_data = json.load(config)
         username = config_data["mongodb"]["username"]
         password = config_data["mongodb"]["password"]
-    db = DB(username, password)
+        _cluster = config_data["mongodb"]["cluster"]
+        _db = config_data["mongodb"]["db"]
+        _collection = config_data["mongodb"]["collection"]
+    db = DB(username, password, _cluster, _db, _collection)
 
     def build(self):
         self.screen_manager = ScreenManager()
@@ -185,7 +188,7 @@ class HeLOApp(App):
         return self.screen_manager
 
     def change_db_user(self, username, password):
-        self.db = DB(username, password)
+        self.db = DB(username, password, self._cluster, self._db, self._collection)
 
 
 if __name__ == "__main__":

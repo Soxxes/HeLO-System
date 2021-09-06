@@ -28,12 +28,13 @@ class ChecksumError(Exception):
 
 class DB:
 
-    def __init__(self, user, pw):
+    # by default, the test data base will be choosed
+    def __init__(self, user, pw, cluster=CLUSTER, db=DB_NAME, collection=COLLECTION):
         self.user = user
         self.pw = pw
-        self.client = MongoClient(f"mongodb+srv://{self.user}:{self.pw}@{CLUSTER}.t145g.mongodb.net/{DB_NAME}?retryWrites=true&w=majority")
-        self.db = self.client[DB_NAME]
-        self.collection = self.db[COLLECTION]
+        self.client = MongoClient(f"mongodb+srv://{self.user}:{self.pw}@{cluster}.t145g.mongodb.net/{db}?retryWrites=true&w=majority")
+        self.db = self.client[db]
+        self.collection = self.db[collection]
 
     def get_score(self, name):
         try:
