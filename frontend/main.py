@@ -114,13 +114,15 @@ class MainWidget(Widget):
         # get number of games from data base
         number1, number2 = app.db.get_number_of_games(name1), app.db.get_number_of_games(name2)
         # make calcs with scores and game score
-        new_score1, new_score2 = calc_new_score(s1, s2, game_score,
+        new_score1, new_score2, error = calc_new_score(s1, s2, game_score,
                                                 a1= 40 if number1 < 30 else 20,
                                                 a2= 40 if number2 < 30 else 20,
                                                 c=self.comp_factor,
                                                 number_of_players=n)
-        # update db with auth and new score
-        error = app.db.update(name1, name2, auth, new_score1, new_score2, int(checksum))
+        if error is None:
+            # update db with auth and new score
+            # overwrite error variable in case there is one
+            error = app.db.update(name1, name2, auth, new_score1, new_score2, int(checksum))
         if error is None:
             # display new scores
             self.set_scores_label(name1, name2)

@@ -13,3 +13,4 @@
 - bei calc & send vorher bestätigen (pop up)
 + split bei unnötigen leerzeichen in der GUI
 - asserts an GUI weiterleiten
+- checken ob Mannschaft existiert (überall)
