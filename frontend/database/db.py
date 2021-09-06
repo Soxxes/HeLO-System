@@ -25,6 +25,15 @@ class ChecksumError(Exception):
     def __str__(self) -> str:
         return self.msg
 
+class TeamExistenceError(Exception):
+    msg = f"Team doesn't exist. Maybe you misspelled the name."
+
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+    def __str__(self) -> str:
+        return self.msg
+
 
 class DB:
 
@@ -121,6 +130,14 @@ class DB:
         if result is None:
             return AuthError()
 
+    def check_team(self, name):
+        result = self.collection.find_one({"name": name})
+        if result is None:
+            # team doesn't exist
+            return False
+        else:
+            return True
+
     def get_checksum(self, auth):
         result = self.collection.find_one({"auth": auth})
         return result["checksum"]
@@ -133,8 +150,10 @@ class DB:
         self.collection.update_one(f, {"$set": {"checksum": new_checksum}})
 
     def get_number_of_games(self, name):
-        result = self.collection.find_one({"name": name})
-        return result["games"]
+        if self.check_team(name):
+            result = self.collection.find_one({"name": name})
+            return result["games"], None
+        return None, TeamExistenceError()
 
     def _update_number_of_games(self, name):
         # games = self._get_number_of_games(name)

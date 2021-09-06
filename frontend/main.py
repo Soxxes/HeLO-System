@@ -112,13 +112,16 @@ class MainWidget(Widget):
         # get scores by names
         s1, s2 = self._get_scores(name1, name2)
         # get number of games from data base
-        number1, number2 = app.db.get_number_of_games(name1), app.db.get_number_of_games(name2)
-        # make calcs with scores and game score
-        new_score1, new_score2, error = calc_new_score(s1, s2, game_score,
-                                                a1= 40 if number1 < 30 else 20,
-                                                a2= 40 if number2 < 30 else 20,
-                                                c=self.comp_factor,
-                                                number_of_players=n)
+        number1, error = app.db.get_number_of_games(name1)
+        if error is None:
+            number2, error = app.db.get_number_of_games(name2)
+        if error is None:
+            # make calcs with scores and game score
+            new_score1, new_score2, error = calc_new_score(s1, s2, game_score,
+                                                    a1= 40 if number1 < 30 else 20,
+                                                    a2= 40 if number2 < 30 else 20,
+                                                    c=self.comp_factor,
+                                                    number_of_players=n)
         if error is None:
             # update db with auth and new score
             # overwrite error variable in case there is one
@@ -126,8 +129,9 @@ class MainWidget(Widget):
         if error is None:
             # display new scores
             self.set_scores_label(name1, name2)
+        # route error through this else statement
         else:
-            # raise error, because update failed
+            # raise error, because something failed
             # display error to user
             self._alert_popup(error)
 
