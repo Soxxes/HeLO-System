@@ -1,0 +1,9 @@
+{
+    "mongodb": {
+        "cluster": "cluster0",
+        "db": "gettingStarted",
+        "collection": "scores",
+        "username": "Superuser",
+        "password": "u9fLzS3kD07"
+    }
+}

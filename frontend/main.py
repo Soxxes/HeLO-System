@@ -10,6 +10,7 @@ from kivy.properties import StringProperty, BooleanProperty
 from database.db import DB
 from src.calcs import calc_new_score
 from kivy.uix.screenmanager import ScreenManager, Screen
+import json
 
 class MyBoxLayout(BoxLayout):
     def __init__(self, **kwargs):
@@ -159,6 +160,11 @@ class HeLOApp(App):
     username = "Public"
     password = "6h2WPva5g"
     auth = ""
+    # in case user changed the username in the config file
+    with open("config.json", "r") as config:
+        config_data = json.load(config)
+        username = config_data["mongodb"]["username"]
+        password = config_data["mongodb"]["password"]
     db = DB(username, password)
 
     def build(self):
