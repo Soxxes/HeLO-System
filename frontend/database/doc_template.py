@@ -6,7 +6,7 @@ doc = {
     "history": ["38.", "46."],              # list of past opponents
     "score": 534,                           # current HeLO score
     "checksum": "random",                   # random number for a check sum
-    "previous_score": 513                   # old score, before the last game
+    "score_history": [513, 534]             # old scores
 }
 
 """
