@@ -83,7 +83,7 @@
         RelativeLayout:
             Button:
                 text: "Submit"
-                on_press: root.submit(username.text.strip(), password.text.strip())
+                on_release: root.submit(username.text.strip(), password.text.strip())
                 valign: "middle"
                 halign: "center"
                 font_name: "fonts/Eurostile.ttf"
@@ -173,6 +173,7 @@
                 CheckBox:
                     id: coop_checkbox
                     pos_hint: {"center_x": 0.75, "center_y": 0.35}
+                    size_hint: 0.15, 0.5
 
         GridLayout:
             cols: 2
