@@ -10,7 +10,7 @@ from kivy.properties import StringProperty, BooleanProperty
 import json
 from functools import partial
 from database.db import DB
-from src.calcs import calc_new_score
+from src.calcs import calc_new_score, calc_coop_scores
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 # dependencies: kivy, pymongo
@@ -155,6 +155,9 @@ class MainWidget(Widget):
         if name1 == "" or name2 == "":
             self._alert_popup("Please enter the names of the teams.")
             return
+        if coop:
+            self._calc_and_send_coop(name1, name2, auth, game_score, checksum, n)
+            return
         # confirm information, if not confirmed return and don't send information to db
         # self._confirm_popup(name1, name2, game_score, n)
         # if not self.confirm: return
@@ -184,13 +187,44 @@ class MainWidget(Widget):
             # display error to user
             self._alert_popup(error)
 
-    def on_switch_active(self, widget):
-        if widget.active:
-            self.superuser_disabled = False
-            # # check if Superuser
-            # self.db = DB(app.username, app.password)
+    def _calc_and_send_coop(self, names1, names2, auth, game_score, checksums, n):
+        # split list of names by ","
+        names1, names2 = names1.split(","), names2.split(",")
+        # remove whitespaces
+        names1, names2 = list(map(lambda x: x.strip(), names1)), list(map(lambda x: x.strip(), names2))
+        # get score for every team
+        h1s = [self._get_scores(name, "")[0] for name in names1]
+        h2s = [self._get_scores(name, "")[0] for name in names2]
+        print(h1s, h2s)
+        # calc the cooperations new scores
+        h1s_new, h2s_new, error = calc_coop_scores(h1s, h2s, game_score,
+                                                    c=self.comp_factor,
+                                                    total_number_of_players=n)
+        print(f"old scores: {h1s} and {h2s}, new scores: {h1s_new} and {h2s_new}")
+        # split checksums and remove whitespaces
+        checksums = checksums.split(",")
+        checksums = list(map(lambda x: x.strip(), checksums))
+        # check auth code of first team
+        auth_checked= app.db.check_auth(names1[0], auth)
+        # check checksum of the opponents
+        checksums_checked = app.db.check_coop_checksums(names2, checksums)
+        print("checked: ", auth_checked, checksums_checked)
+        # update db
+        if error is None and auth_checked and checksums_checked:
+            zipped = list(zip(names1, h1s_new)) + list(zip(names2, h2s_new))
+            for name, h_new in zipped:
+                print("names lists: ", names1, names2)
+                error = app.db.update_single(name, h_new,
+                                            opponents=names2 if name in names1 else names1)
+                if error is not None:
+                    break
+        if error is None:
+            # display new scores
+            self.set_scores_label(names1[0], names2[0])
         else:
-            self.superuser_disabled = True
+            # raise error, because something failed
+            # display error to user
+            self._alert_popup(error)
 
     def switch_to_superuser_page(self, page_name, auth):
         check = app.db.check_superuser(auth)

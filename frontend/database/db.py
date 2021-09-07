@@ -180,3 +180,53 @@ class DB:
         his = self.get_score_history(name)
         his.append(score)
         return his
+
+    def update_single(self, name, new_score, opponents):
+        # make opponents list to one string
+        opps = ", ".join(opponents)
+        print("opps: ", opps)
+        try:
+            f = {"name": name}
+            # all "set" updates
+            self.collection.update_one(
+                f,
+                {"$set": {
+                    "score": new_score,
+                    "history": self._update_history(name, opps),
+                    "score_history": self._update_score_history(name)
+                }},
+            )
+            # increment updates
+            self.collection.update_one(
+                f,
+                {"$inc":
+                    {
+                        "games": 1
+                    }
+                }
+            )
+            # change opponents checksums
+            for opponent in opponents:
+                self._update_checksum(opponent)
+            return None
+        except OperationFailure as e:
+            return "User doesn't exist or isn't allowed to to perform that operation."
+ 
+
+    def check_auth(self, name, auth):
+        result = self.collection.find_one({"name": name})
+        if result["auth"] == auth:
+            return True
+        else:
+            return False
+    
+    def check_coop_checksums(self, names, checksums):
+        print("names and checksums:", names, checksums)
+        for name, checksum in zip(names, checksums):
+            f = {"name": name}
+            result = self.collection.find_one(f)
+            print(name, checksum)
+            print(result["checksum"])
+            if result is None or result["checksum"] != int(checksum):
+                return False
+        return True

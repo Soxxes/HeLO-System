@@ -58,7 +58,6 @@ def calc_new_score(h1, h2, score, a1=40, a2=40, c=1, number_of_players=50):
         # print(f"h1: {h1}, a1: {a1}, c: {c}, number of players: {number_of_players}, points: {points1}, prob: {prob1}")
         h1_new = h1 + a1 * c * (math.log(number_of_players/50, a1) + 1) * (points1 / 5 - prob1)
         h2_new = h2 + a2 * c * (math.log(number_of_players/50, a2) + 1) * (points2 / 5 - prob2)
-        print("unshared scores", h1_new, h2_new)
         return round(h1_new), round(h2_new), None
     except AssertionError:
         return None, None, "Sum of points in score must be less or equal to 5"
@@ -109,7 +108,6 @@ def calc_coop_scores(h1s, h2s, score, c=1, total_number_of_players=50):
     """
     # calculate the average scores per cooperation
     avg_score1, avg_score2 = mean(h1s), mean(h2s)
-    print("avg scores", avg_score1, avg_score2)
     # calculate the score gain for every partner in a cooperation
     gain1, gain2, error = _calc_coop_score_gain(avg_score1, avg_score2, score,
                                                 coop1_teams=len(h1s),
