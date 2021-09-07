@@ -159,9 +159,20 @@
                     valign: "middle"
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
-                    size_hint: 0.3, 0.5
-                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    size_hint: 0.3, 0.6
+                    pos_hint: {"center_x": 0.25, "center_y": 0.5}
                     # backround_color: 0, 0, 0, 1
+
+                Label:
+                    text: "Coop Mode"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    pos_hint: {"center_x": 0.75, "center_y": 0.75}
+                CheckBox:
+                    id: coop_checkbox
+                    pos_hint: {"center_x": 0.75, "center_y": 0.35}
 
         GridLayout:
             cols: 2
