@@ -150,7 +150,7 @@ class MainWidget(Widget):
         elif widget.text == "competitive match (extra sweaty)":
             self.comp_factor = 1.2
 
-    def calc_and_send(self, name1, name2, auth, game_score, checksum, n):
+    def calc_and_send(self, name1, name2, auth, game_score, checksum, n, coop):
         # check if names have been entered
         if name1 == "" or name2 == "":
             self._alert_popup("Please enter the names of the teams.")
