@@ -1,10 +1,9 @@
-from frontend.database.db import COLLECTION
 from pymongo import MongoClient, collection
 import random
 
 # document information
-NAME = ""
-AUTH = ""
+NAME = "GOF"   # *
+AUTH = "c7349"  # *
 SCORE = 600
 GAMES = 0
 HISTORY = []
@@ -14,9 +13,9 @@ SCORE_HISTORY = []
 # db information
 USER = "Superuser"
 PASSWORD = "u9fLzS3kD07"
-DB = ""
-CLUSTER = ""
-COLLECTION = ""
+DB = "HeLO_Scores"
+CLUSTER = "Cluster0"
+COLLECTION = "scores"
 
 # create client
 client = MongoClient(f"mongodb+srv://{USER}:{PASSWORD}@{CLUSTER}.t145g.mongodb.net/{DB}?retryWrites=true&w=majority")
