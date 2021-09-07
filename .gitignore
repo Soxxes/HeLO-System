@@ -6,3 +6,4 @@ applibs/
 state.db
 App/
 build/
+frontend/config.json
