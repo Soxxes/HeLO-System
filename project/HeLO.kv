@@ -83,7 +83,7 @@
         RelativeLayout:
             Button:
                 text: "Submit"
-                on_press: root.submit(username.text, password.text)
+                on_release: root.submit(username.text.strip(), password.text.strip())
                 valign: "middle"
                 halign: "center"
                 font_name: "fonts/Eurostile.ttf"
@@ -140,7 +140,7 @@
                     valign: "middle"
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
-                    size_hint: 0.5, 0.3
+                    size_hint: 0.4, 1
                     pos_hint: {"center_x": 0.35, "center_y": 0.5}
                 Label:
                     id: current_user
@@ -154,18 +154,31 @@
             RelativeLayout:
                 Button:
                     text: "Login"
-                    on_release: root.switch_to_superuser_page("Superuser", auth.text)
+                    on_release: root.switch_to_superuser_page("Superuser", auth.text.strip())
                     text_size: self.size
                     valign: "middle"
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
-                    size_hint: 0.3, 0.5
-                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    size_hint: 0.3, 0.6
+                    pos_hint: {"center_x": 0.25, "center_y": 0.5}
                     # backround_color: 0, 0, 0, 1
+
+                Label:
+                    text: "Coop Mode"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    pos_hint: {"center_x": 0.75, "center_y": 0.75}
+                CheckBox:
+                    id: coop_checkbox
+                    pos_hint: {"center_x": 0.75, "center_y": 0.35}
+                    size_hint: 0.15, 0.5
 
         GridLayout:
             cols: 2
             spacing: 5
+            size_hint: 1, 1.2
             Label:
                 text: "Authentication code:"
                 text_size: self.size
@@ -206,11 +219,22 @@
                 valign: "middle"
                 halign: "center"
                 font_name: "fonts/Eurostile.ttf"
-            TextInput:
-                id: game_score
-                multiline: False
-                text: "e.g. '4-1'"
-                font_name: "fonts/Eurostile.ttf"
+            BoxLayout:
+                orientation: "horizontal"
+                TextInput:
+                    id: game_score1
+                    multiline: False
+                    font_name: "fonts/Eurostile.ttf"
+                Label:
+                    text: "-"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                TextInput:
+                    id: game_score2
+                    multiline: False
+                    font_name: "fonts/Eurostile.ttf"
             Label:
                 text: "Checksum of Opponent:"
                 text_size: self.size
@@ -221,16 +245,54 @@
                 id: check_sum_input
                 multiline: False
                 font_name: "fonts/Eurostile.ttf"
+            Label:
+                text: "Competitive Factor"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            Spinner:
+                id: comp_factor_spinner
+                text: "competitve match"
+                values: ["friendly match (off season)", "friendly match (on season)", "competitive match", "competitive match (extra sweaty)"]
+                font_name: "fonts/Eurostile.ttf"
+                on_text: root.set_comp_factor(self)
+            Label:
+                text: "Number of Players:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            BoxLayout:
+                orientation: "horizontal"
+                Slider:
+                    id: number_of_players
+                    min: 3
+                    max: 50
+                    value: 50
+                    step: 1
+                    padding: 10
+                    #on_value: root.on_slider_value(self)
+                Label:
+                    id: number_of_players_label
+                    text: str(number_of_players.value)
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.5, 1
+
         
         # Buttons
         GridLayout:
             cols: 2
+            size_hint: 1, 0.8
             RelativeLayout:
                 Button:
                 # (Requires Authentication and Checksum)
                     text: "Calc & Send"
                     size_hint: 0.4, 0.3
-                    on_press: root.calc_and_send(name_team_one.text, name_team_two.text, auth.text, game_score.text, check_sum_input.text)
+                    on_release: root.calc_and_send(name_team_one.text.strip(), name_team_two.text.strip(), auth.text.strip(), game_score1.text.strip()+"-"+game_score2.text.strip(), check_sum_input.text.strip(), number_of_players.value, coop_checkbox.active)
                     #disabled: root.superuser_disabled
                     text_size: self.size
                     valign: "middle"
@@ -240,7 +302,7 @@
                 Button:
                     text: "Get HeLO Score"
                     size_hint: 0.4, 0.3
-                    on_press: root.set_scores_label(name_team_one.text, name_team_two.text)
+                    on_release: root.set_scores_label(name_team_one.text.strip(), name_team_two.text.strip())
                     text_size: self.size
                     valign: "middle"
                     halign: "center"
@@ -262,6 +324,7 @@
                     valign: "middle"
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
+                    bold: True
                 Label:
                     text: "HeLO Score Team 2:"
                     text_size: self.size
@@ -274,4 +337,9 @@
                     valign: "middle"
                     halign: "center"
                     font_name: "fonts/Eurostile.ttf"
+                    bold: True
         
+        Label:
+            text: "HeLO System by Soxxes | version 0.0.1"
+            font_size: "12dp"
+            size_hint: 1, 0.02

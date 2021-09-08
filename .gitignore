@@ -5,3 +5,10 @@ android/
 applibs/
 state.db
 App/
+build/
+frontend/config.json
+ranking.py
+test.py
+registration.py
+doc_template.py
+__pycache__/
