@@ -29,6 +29,8 @@ Let's dive a little bit deeper into the maths. Based on the current score of eac
 
 $P(D) = \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^D e^{-\frac{t^2}{2\sigma^2}} dt$
 
+P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt
+
 **D** is the difference between the scores of team 1 and team 2. The standard derivation is set to $\sigma = 200 \sqrt{2}$ and the mean is 0. As promised, the integral mentioned above simplifies to:
 
 $P(D) = \frac{\mathrm{erf}(\frac{D}{400})+1}{2}$,
