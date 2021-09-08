@@ -1,23 +1,4 @@
-# MyBoxLayout:
-
-# <MyBoxLayout>:
-#     orientation: "vertical"
-#     Label:
-#         text: "Welcome to the HeLO-System!"
-#         size_hint: 0.1, 0.2
-#         pos_hint: {"center_x": 0.5}
-
-#     BoxLayout:
-#         orientation: "horizontal"
-#         Label:
-#             text: "Name of Team 1"
-#         TextInput:
-#             multiline: False
-#     Button:
-#         text: "Send & Calc"
-#         size_hint: 0.2, 0.2
-#         pos_hint: {"center_x": 0.5}
-
+# window for Superuser login and getting the checksum
 <SuperUserWindow>:
     GridLayout:
         cols: 1
@@ -29,7 +10,6 @@
             orientation: "horizontal"
             # go back to main window
             Button:
-                #text: "Back"
                 on_press: root.on_back_button()
                 on_release: root.switch_to_main("Main")
                 size_hint: 0.25, 0.5
@@ -42,7 +22,6 @@
                     center_y: self.parent.center_y
             Label:
                 text: "Superuser Login"
-                #size_hint: 0.1, 0.2
                 pos_hint: {"center_y": .5, "center_x": .75}
                 text_size: self.size
                 font_size: "20dp"
@@ -80,6 +59,7 @@
                 halign: "center"
                 font_name: "fonts/Eurostile.ttf"
         
+        # submit button for login
         RelativeLayout:
             Button:
                 text: "Submit"
@@ -110,6 +90,7 @@
                 font_name: "fonts/Eurostile.ttf"
 
 
+# mian window
 <MainWidget>:
     GridLayout:
         cols: 1
@@ -130,9 +111,7 @@
         BoxLayout:
             orientation: "horizontal"
             size_hint: 1, 0.3
-            # Switch:
-            #     id: superuser_switch
-            #     on_active: root.on_switch_active(self)
+            # displays the user currently logged in, default is Public
             RelativeLayout:
                 Label:
                     text: "current user:"
@@ -151,6 +130,7 @@
                     font_name: "fonts/Eurostile.ttf"
                     size_hint: 0.4, 0.3
                     pos_hint: {"center_x": 0.6, "center_y": 0.5}
+            # button to switch to Superuser window
             RelativeLayout:
                 Button:
                     text: "Login"
@@ -161,8 +141,8 @@
                     font_name: "fonts/Eurostile.ttf"
                     size_hint: 0.3, 0.6
                     pos_hint: {"center_x": 0.25, "center_y": 0.5}
-                    # backround_color: 0, 0, 0, 1
 
+                # coop mode
                 Label:
                     text: "Coop Mode"
                     text_size: self.size
@@ -175,6 +155,7 @@
                     pos_hint: {"center_x": 0.75, "center_y": 0.35}
                     size_hint: 0.15, 0.5
 
+        # all text inputs
         GridLayout:
             cols: 2
             spacing: 5
@@ -219,6 +200,8 @@
                 valign: "middle"
                 halign: "center"
                 font_name: "fonts/Eurostile.ttf"
+            
+            # game score
             BoxLayout:
                 orientation: "horizontal"
                 TextInput:
@@ -235,6 +218,8 @@
                     id: game_score2
                     multiline: False
                     font_name: "fonts/Eurostile.ttf"
+
+            # checksum
             Label:
                 text: "Checksum of Opponent:"
                 text_size: self.size
@@ -245,6 +230,8 @@
                 id: check_sum_input
                 multiline: False
                 font_name: "fonts/Eurostile.ttf"
+            
+            # comp factor
             Label:
                 text: "Competitive Factor"
                 text_size: self.size
@@ -257,6 +244,8 @@
                 values: ["friendly match (off season)", "friendly match (on season)", "competitive match", "competitive match (extra sweaty)"]
                 font_name: "fonts/Eurostile.ttf"
                 on_text: root.set_comp_factor(self)
+
+            # number of players
             Label:
                 text: "Number of Players:"
                 text_size: self.size
@@ -272,7 +261,6 @@
                     value: 50
                     step: 1
                     padding: 10
-                    #on_value: root.on_slider_value(self)
                 Label:
                     id: number_of_players_label
                     text: str(number_of_players.value)
@@ -283,17 +271,16 @@
                     size_hint: 0.5, 1
 
         
-        # Buttons
+        # Buttons to get or send
         GridLayout:
             cols: 2
             size_hint: 1, 0.8
             RelativeLayout:
                 Button:
-                # (Requires Authentication and Checksum)
+                    # requires Authentication and Checksum
                     text: "Calc & Send"
                     size_hint: 0.4, 0.3
                     on_release: root.calc_and_send(name_team_one.text.strip(), name_team_two.text.strip(), auth.text.strip(), game_score1.text.strip()+"-"+game_score2.text.strip(), check_sum_input.text.strip(), number_of_players.value, coop_checkbox.active)
-                    #disabled: root.superuser_disabled
                     text_size: self.size
                     valign: "middle"
                     halign: "center"
