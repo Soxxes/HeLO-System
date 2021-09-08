@@ -56,15 +56,6 @@ class DB:
         except OperationFailure as e:
             return None, "User doesn't exist or isn't allowed to to perform that operation."
 
-    def _update_score(self, name, new_score):
-        # filter
-        # f = {"name": name}
-        # set new value
-        new_score = {"$set": {"score": new_score}}
-        # update document
-        # self.collection.update_one(f, new_score)
-        return new_score
-
     def update(self, name1, name2, auth, new_score1, new_score2, checksum):
         try:
             # auth must match with auth of name1's team
@@ -130,6 +121,24 @@ class DB:
         if result is None:
             return AuthError()
 
+    def check_auth(self, name, auth):
+        result = self.collection.find_one({"name": name})
+        if result["auth"] == auth:
+            return True
+        else:
+            return False
+    
+    def check_coop_checksums(self, names, checksums):
+        print("names and checksums:", names, checksums)
+        for name, checksum in zip(names, checksums):
+            f = {"name": name}
+            result = self.collection.find_one(f)
+            print(name, checksum)
+            print(result["checksum"])
+            if result is None or result["checksum"] != int(checksum):
+                return False
+        return True
+
     def check_team(self, name):
         result = self.collection.find_one({"name": name})
         if result is None:
@@ -156,8 +165,6 @@ class DB:
         return None, TeamExistenceError()
 
     def _update_number_of_games(self, name):
-        # games = self._get_number_of_games(name)
-        # games += 1
         f = {"name": name}
         new_val = {"$inc": {"games": 1}}
         self.collection.update_one(f, new_val)
@@ -212,21 +219,3 @@ class DB:
         except OperationFailure as e:
             return "User doesn't exist or isn't allowed to to perform that operation."
  
-
-    def check_auth(self, name, auth):
-        result = self.collection.find_one({"name": name})
-        if result["auth"] == auth:
-            return True
-        else:
-            return False
-    
-    def check_coop_checksums(self, names, checksums):
-        print("names and checksums:", names, checksums)
-        for name, checksum in zip(names, checksums):
-            f = {"name": name}
-            result = self.collection.find_one(f)
-            print(name, checksum)
-            print(result["checksum"])
-            if result is None or result["checksum"] != int(checksum):
-                return False
-        return True
