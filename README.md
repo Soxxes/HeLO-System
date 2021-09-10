@@ -6,7 +6,7 @@ I created an Elo-System for the competitive "Hell Let Loose" scene. Yes, there a
 <br />
 
 ## What is an Elo System?
-An Elo-System is a rating system, created in 1970s by A. Elo. He designed that to rank chess players.
+An Elo-System is a rating system, created in the 1970s by A. Elo. He designed it to rank chess players.
 If you have ever played chess online, you may have noticed this number after your name. That's your elo score.
 Have a look at: [Wikipedia](https://en.wikipedia.org/wiki/Elo_rating_system).
 
