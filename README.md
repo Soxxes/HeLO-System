@@ -33,7 +33,7 @@ Let's dive a little bit deeper into the maths. Based on the current score of eac
 
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{\mathrm{erf}(\frac{D}{400})&plus;1}{2}" title="\bg_white P(D) = \frac{\mathrm{erf}(\frac{D}{400})+1}{2}" />
 
-where **erf(x)** is the Gaussian error function. That's basically it. Let's have a look at a small example. Team A (734) plays against team B (579). The difference is: D = 734 - 579 = 155. Now we just have to insert the numbers in the equation ... and $P(D) = 0.708$. What does this mean? It means that Team A will win the game with a probability of 70.8%. The probabilty for Team B to win is the counter-probability: 1 - P(D) = 0.292. <br />
+where **erf(x)** is the Gaussian error function. That's basically it. Let's have a look at a small example. Team A (734) plays against team B (579). The difference is: D = 734 - 579 = 155. Now we just have to insert the numbers in the equation ... and P(D) = 0.708. What does this mean? It means that Team A will win the game with a probability of 70.8%. The probabilty for Team B to win is the counter-probability: 1 - P(D) = 0.292. <br />
 Side information: In case the difference **D** should be greater than 400, the system will take 400 as the maximum. Otherwise, the score gain or loss would be either too significant or absolutely irrelevant.
 
 <br />
@@ -41,6 +41,36 @@ Side information: In case the difference **D** should be greater than 400, the s
 ## Calculating the new HeLO Score
 For that I copied the formula from chess, but adjusted a few factors (as mentioned earlier):
 
-$H'_\mathrm{n} = H_\mathrm{n} + k(S_\mathrm{n}-P_\mathrm{n}(D))$
+<img src="https://latex.codecogs.com/svg.image?\bg_white&space;H'_\mathrm{n}&space;=&space;H_\mathrm{n}&space;&plus;&space;k(S_\mathrm{n}-P_\mathrm{n}(D))" title="\bg_white H'_\mathrm{n} = H_\mathrm{n} + k(S_\mathrm{n}-P_\mathrm{n}(D))" />
 
-$H'_\mathrm{n}$ is the new HeLO score of team n and $H_\mathrm{n}$ is the current HeLO score.
+<img src="https://latex.codecogs.com/svg.image?\bg_white&space;H'_\mathrm{n}" title="\bg_white H'_\mathrm{n}" /> is the new HeLO score of team n and $H_\mathrm{n}$ is the current HeLO score Let's have a closer look on **k**:
+
+<img src="https://latex.codecogs.com/svg.image?\bg_white&space;k&space;=&space;ac&space;\cdot&space;(log_{a}&space;\frac{N}{50}&space;&plus;&space;1)" title="\bg_white k = ac \cdot (log_{a} \frac{N}{50} + 1)" />
+
+* **a**: The "Number of Games" factor. a = 40 for less than 30 games played, a = 20 for more (or equal) than 30 games played
+* **c**: The "Competitive" factor. Off seasonal time is during Christmas and New Year's eve, easter time and during the summer (1st of July until 31st of August).
+    * friendly match (off seasonal): c = 0.5
+    * friendly match (on seasonal): c = 0.8
+    * competitve match: c = 1
+    * competitve match (extra sweaty): c = 1.2
+* **N**: The "Number of Players" factor. Why is it logarithmic? For me it was not an option to scale the number of players linearly, because it is a huge difference of missing a full squad in a 50v50 game and missing a squad in a 25v25 game. Therefore, this factor decreases even heavier the more players are missing. Fun fact: there have to be at least 3 players on each side. Otherwise the logarithm will be negative (and that is something we don't want to happen).
+
+<br />
+
+## Guessing the HeLO Score of a new Team
+New teams start with a HeLO score of 600. To be honest, there will be exceptions to this. In order to reduce the "settling time", I will guess the strength of a team and give them a score between 550 and 650. The affected team will be informed about that.
+
+<br />
+
+## Full Example
+Let's have a look at a realistic example. Team A (746) plays a competitive match (extra sweaty) against Team B (613). They play with 45 players on each side. Team A played more than 30 games, but Team B is relatively new on scene (played less than 30 games). Team B (everyone sympathizes for the underdog) wins with a score of 4-1.
+
+1) Calculate the difference: D = 746 - 613 = 133
+2) Calculate the probability of winning for Team A: P(121) = 0.681
+3) Calculate the probability of winning for Team B: 1 - P(121) = 0.319
+4) New HeLO score for Team A: <br />
+<img src="https://latex.codecogs.com/svg.image?\bg_white&space;H'_\mathrm{1}&space;=&space;746&space;&plus;&space;20\cdot&space;1.2&space;\cdot&space;(log_{20}&space;\frac{45}{50}&space;&plus;&space;1)&space;(\frac{0}{5}-0.681)&space;\approx&space;730" title="\bg_white H'_\mathrm{1} = 746 + 20\cdot 1.2 \cdot (log_{20} \frac{45}{50} + 1) (\frac{0}{5}-0.681) \approx 730" />
+5) New HeLO score for Team B: <br />
+<img src="https://latex.codecogs.com/svg.image?\bg_white&space;H'_\mathrm{2}&space;=&space;613&space;&plus;&space;40\cdot&space;1.2&space;\cdot&space;(log_{40}&space;\frac{45}{50}&space;&plus;&space;1)&space;(\frac{5}{5}-0.319)&space;\approx&space;645" title="\bg_white H'_\mathrm{2} = 613 + 40\cdot 1.2 \cdot (log_{40} \frac{45}{50} + 1) (\frac{5}{5}-0.319) \approx 645" />
+
+So Team A loses 16 score points while Team B gains 32 score points for beating a better team.
