@@ -43,7 +43,7 @@ For that I copied the formula from chess, but adjusted a few factors (as mention
 
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;H'_\mathrm{n}&space;=&space;H_\mathrm{n}&space;&plus;&space;k(S_\mathrm{n}-P_\mathrm{n}(D))" title="\bg_white H'_\mathrm{n} = H_\mathrm{n} + k(S_\mathrm{n}-P_\mathrm{n}(D))" />
 
-<img src="https://latex.codecogs.com/svg.image?\bg_white&space;H'_\mathrm{n}" title="\bg_white H'_\mathrm{n}" /> is the new HeLO score of team n and $H_\mathrm{n}$ is the current HeLO score Let's have a closer look on **k**:
+<img src="https://latex.codecogs.com/svg.image?\bg_white&space;H'_\mathrm{n}" title="\bg_white H'_\mathrm{n}" /> is the new HeLO score of team n and <img src="https://latex.codecogs.com/svg.image?\bg_white&space;H_\mathrm{n}" title="\bg_white H_\mathrm{n}" /> is the current HeLO score Let's have a closer look on **k**:
 
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;k&space;=&space;ac&space;\cdot&space;(log_{a}&space;\frac{N}{50}&space;&plus;&space;1)" title="\bg_white k = ac \cdot (log_{a} \frac{N}{50} + 1)" />
 
@@ -54,6 +54,8 @@ For that I copied the formula from chess, but adjusted a few factors (as mention
     * competitve match: c = 1
     * competitve match (extra sweaty): c = 1.2
 * **N**: The "Number of Players" factor. Why is it logarithmic? For me it was not an option to scale the number of players linearly, because it is a huge difference of missing a full squad in a 50v50 game and missing a squad in a 25v25 game. Therefore, this factor decreases even heavier the more players are missing. Fun fact: there have to be at least 3 players on each side. Otherwise the logarithm will be negative (and that is something we don't want to happen).
+
+<img src="https://latex.codecogs.com/svg.image?\bg_white&space;S_\mathrm{n}" title="\bg_white S_\mathrm{n}" /> are the points your team holds at the end of the game normalized to 5.
 
 <br />
 
