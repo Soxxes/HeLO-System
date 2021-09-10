@@ -16,7 +16,7 @@ I slightly adjusted this system and adapted it to HLL ... and I named it **HeLO 
 
 ## What Factors influence the HeLO Score?
 If you don't have a basic knowledge of how elo systems work, please take a few minutes to read about them. In contrary to chess, the HeLO score depends not only on the final result of the game and your current score. <br />
-A victory in HLL can 5-0, 4-1 or 3-2. The latter is closer to a draw in chess than a win. Additionally, we don't rate players but whole teams. So another dependency is the number of players played in a certain game. Last, there are friendly matches and competitive matches between the teams. In my opinion that should be weighted differently, too. <br />
+A victory in HLL can be a 5-0, 4-1 or 3-2. The latter is closer to a draw in chess than a win. Additionally, we don't rate players but whole teams. So another dependency is the number of players played in a certain game. Last, there are friendly matches and competitive matches between the teams. In my opinion that should be weighted differently, too. <br />
 To summarize, there are three main factors:
 * the game result
 * the number of players
