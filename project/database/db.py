@@ -151,7 +151,7 @@ class DB:
         result = self.collection.find_one({"auth": auth})
         return result["checksum"]
         # no AuthError() should be raised here, because this method
-        # only gets called when check_superuser() were survived
+        # only gets called when check_superuser() was survived
 
     def _update_checksum(self, name):
         new_checksum = random.randrange(10000, 100000)
