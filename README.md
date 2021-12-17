@@ -76,3 +76,22 @@ Let's have a look at a realistic example. Team A (746) plays a competitive match
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;H'_\mathrm{2}&space;=&space;613&space;&plus;&space;40\cdot&space;1.2&space;\cdot&space;(log_{40}&space;\frac{45}{50}&space;&plus;&space;1)&space;(\frac{5}{5}-0.319)&space;\approx&space;645" title="\bg_white H'_\mathrm{2} = 613 + 40\cdot 1.2 \cdot (log_{40} \frac{45}{50} + 1) (\frac{5}{5}-0.319) \approx 645" />
 
 So Team A loses 16 score points while Team B gains 32 score points for beating a better team.
+
+<br />
+
+## Current State
+At the moment there is a downloadable and executable desktop application. The main window looks like this:
+
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/50017993/146559601-4bb13eb6-a14c-4b3a-9df1-ff3b0c3a8689.png">
+
+Originally, the intention was to grant every team manager Superuser permissions, which are necessary to report game results. Additionally, users that do not have these permissions can request the scores of all teams. There is also some kind of security implemented (e.g. Superusers must authenticate themselves), but this is all rudimentary. I'll keep this section small, because I am currently working on major improvements (see "Planned Features"). Soon, all of this will be much better and easier to use.
+
+<br />
+
+## Planned Features
+The following features are either planned or already partially implemented:
+* **REST API** replacing the downloadable client
+* **Discord Bot** with various quality of life features (including easy reporting of game results, request of scores and statistics, simulation mode, betting system, ...)
+
+The Discord Bot's development branch (not public atm) currently runs on the HeLO-Discord: https://discord.gg/dmtcbrV7t5, feel free to join and stress test the bot. <br />
+As I write this, there are already 56 teams registered in the HeLO-System. The Discord has more than 240 members. I had no idea that the project would be so well received and I am genuinely thankful for it.
