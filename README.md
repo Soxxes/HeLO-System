@@ -82,7 +82,7 @@ So Team A loses 16 score points while Team B gains 32 score points for beating a
 ## Current State
 At the moment there is a downloadable and executable desktop application. The main window looks like this:
 
-<img width="400" alt="image" src="https://user-images.githubusercontent.com/50017993/146559601-4bb13eb6-a14c-4b3a-9df1-ff3b0c3a8689.png">
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/50017993/148366380-264d8521-8e13-414f-86ae-5e3dfbe466fc.PNG">
 
 Originally, the intention was to grant every team manager Superuser permissions, which are necessary to report game results. Additionally, users that do not have these permissions can request the scores of all teams. There is also some kind of security implemented (e.g. Superusers must authenticate themselves), but this is all rudimentary. I'll keep this section small, because I am currently working on major improvements (see "Planned Features"). Soon, all of this will be much better and easier to use.
 
