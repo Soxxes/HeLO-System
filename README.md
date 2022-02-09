@@ -79,6 +79,17 @@ So Team A loses 16 score points while Team B gains 32 score points for beating a
 
 <br />
 
+## What if more than one team plays together?
+Glad you ask! This is called a <i>cooperation</i>. Cooperations can consist of teams fielding the same amount of players, e.g. 25 each, or different amounts of players, e.g. 15 and 35.<br />
+We have multiple options here. The most intuitive one is to assign the score gain or loss of that specific game according to the player distributions. And that is exactly what a weighted average does. Check this out:
+
+<img src="https://latex.codecogs.com/svg.image?\overline{x}&space;=&space;\sum_{i=1}^{n}w_i&space;x_i">
+
+where the <img src="https://latex.codecogs.com/svg.image?\inline&space;w_i" title="\inline w_i" /> are the player fielded by a team normalized to the total number of players. <img src="https://latex.codecogs.com/svg.image?\inline&space;x_i" title="\inline x_i" /> is then the score of the corresponding team. First good thing about this is we can calculate the new score of this specific cooperation with the average as it was the score of "normal" team. And second, we can assign the gain/loss of this game to the teams in the same manner. <br />
+The second option, easier and not so accurate, is leaving out the weights, computing a normal average and share the gain/loss equally among the participants of the cooperation. We use this in case no player distributions are given.
+
+<br />
+
 ## Current State
 At the moment there is a downloadable and executable desktop application. The main window looks like this:
 
