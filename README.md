@@ -27,6 +27,8 @@ To summarize, there are three main factors:
 ## Calculating the Probability of a Victory
 Let's dive a little bit deeper into the maths. Based on the current score of each team, we need to know the probabilty of winning, which can be calculated by the following integral (don't worry, I will strongly simplify it):
 
+$$ a = b $$
+
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt" title="\bg_white P(D) = \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^D e^{-\frac{t^2}{2\sigma^2}} dt" />
 
 <br />
@@ -108,3 +110,8 @@ The following features are either planned or already partially implemented:
 
 The Discord Bot's development branch (not public atm) currently runs on the HeLO-Discord: https://discord.gg/dmtcbrV7t5, feel free to join and stress test the bot. <br />
 As I write this, there are already 56 teams registered in the HeLO-System. The Discord has more than 240 members. I had no idea that the project would be so well received and I am genuinely thankful for it.
+
+
+<script type="text/javascript" async
+
+src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
