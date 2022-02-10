@@ -87,8 +87,6 @@ We have multiple options here. The most intuitive one is to assign the score gai
 
 <img src="https://latex.codecogs.com/svg.image?\overline{x}&space;=&space;\sum_{i=1}^{n}w_i&space;x_i" title="\bg_white \overline{x} = \sum_{i=1}^{n}w_i x_i" />
 
-<img src="https://latex.codecogs.com/svg.image?\overline{x}&space;=&space;\sum_{i=1}^{n}w_i&space;x_i" title="\bg_white H'_\mathrm{2} = 613 + 40\cdot 1.2 \cdot (log_{40} \frac{45}{50} + 1) (\frac{5}{5}-0.319) \approx 645" />
-
 where the <i>**w**</i>s are the player fielded by a team normalized to the total number of players. <i>**x**</i> is then the score of the corresponding team. First good thing about this is we can calculate the new score of this specific cooperation with the average as it was the score of "normal" team. And second, we can assign the gain/loss of this game to the teams in the same manner. <br />
 The second option, easier and not so accurate, is leaving out the weights, computing a normal average and share the gain/loss equally among the participants of the cooperation. We use this in case no player distributions are given.
 
@@ -110,3 +108,22 @@ The following features are either planned or already partially implemented:
 
 The Discord Bot's development branch (not public atm) currently runs on the HeLO-Discord: https://discord.gg/dmtcbrV7t5, feel free to join and stress test the bot. <br />
 As I write this, there are already 56 teams registered in the HeLO-System. The Discord has more than 240 members. I had no idea that the project would be so well received and I am genuinely thankful for it.
+
+# test
+
+some text \(\frac{x}{y}=z^2\)
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>test</title>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <h1>test</h1>
+
+    <p> test \(\frac{x}{y}=z^2\)</p>
+
+  </body>
+</html>
