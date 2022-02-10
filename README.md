@@ -83,7 +83,7 @@ So Team A loses 16 score points while Team B gains 32 score points for beating a
 
 ## What if more than one team plays together?
 Glad you ask! This is called a <i>cooperation</i>. Cooperations can consist of teams fielding the same amount of players, e.g. 25 each, or different amounts of players, e.g. 15 and 35.<br />
-We have multiple options here. The most intuitive one is to assign the score gain or loss of that specific game according to the player distributions. And that is exactly what a weighted average does. Check this out:
+We have multiple options here. The most intuitive one is to assign the score gain or loss of that specific game according to the player distributions. And that is exactly what a weighted average does. Check this out:<br />
 
 <img src="https://latex.codecogs.com/svg.image?\overline{x}&space;=&space;\sum_{i=1}^{n}w_i&space;x_i" title="\overline{x} = \sum_{i=1}^{n}w_i x_i" />
 
