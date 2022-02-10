@@ -27,8 +27,6 @@ To summarize, there are three main factors:
 ## Calculating the Probability of a Victory
 Let's dive a little bit deeper into the maths. Based on the current score of each team, we need to know the probabilty of winning, which can be calculated by the following integral (don't worry, I will strongly simplify it):
 
-$$ a = b $$
-
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt" title="\bg_white P(D) = \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^D e^{-\frac{t^2}{2\sigma^2}} dt" />
 
 <br />
@@ -87,9 +85,9 @@ So Team A loses 16 score points while Team B gains 32 score points for beating a
 Glad you ask! This is called a <i>cooperation</i>. Cooperations can consist of teams fielding the same amount of players, e.g. 25 each, or different amounts of players, e.g. 15 and 35.<br />
 We have multiple options here. The most intuitive one is to assign the score gain or loss of that specific game according to the player distributions. And that is exactly what a weighted average does. Check this out:<br />
 
-<img src="https://latex.codecogs.com/svg.image?\overline{x}&space;=&space;\sum_{i=1}^{n}w_i&space;x_i" title="\overline{x} = \sum_{i=1}^{n}w_i x_i" />
+<img src="https://latex.codecogs.com/svg.image?\overline{x}&space;=&space;\sum_{i=1}^{n}w_i&space;x_i" title="\bg_white&space;\overline{x} = \sum_{i=1}^{n}w_i x_i" />
 
-where the <img src="https://latex.codecogs.com/svg.image?\inline&space;w_i" title="\inline w_i" /> are the player fielded by a team normalized to the total number of players. <img src="https://latex.codecogs.com/svg.image?\inline&space;x_i" title="\inline x_i" /> is then the score of the corresponding team. First good thing about this is we can calculate the new score of this specific cooperation with the average as it was the score of "normal" team. And second, we can assign the gain/loss of this game to the teams in the same manner. <br />
+where the <i>**w**</i>s are the player fielded by a team normalized to the total number of players. <i>**x**</i> is then the score of the corresponding team. First good thing about this is we can calculate the new score of this specific cooperation with the average as it was the score of "normal" team. And second, we can assign the gain/loss of this game to the teams in the same manner. <br />
 The second option, easier and not so accurate, is leaving out the weights, computing a normal average and share the gain/loss equally among the participants of the cooperation. We use this in case no player distributions are given.
 
 <br />
@@ -110,8 +108,3 @@ The following features are either planned or already partially implemented:
 
 The Discord Bot's development branch (not public atm) currently runs on the HeLO-Discord: https://discord.gg/dmtcbrV7t5, feel free to join and stress test the bot. <br />
 As I write this, there are already 56 teams registered in the HeLO-System. The Discord has more than 240 members. I had no idea that the project would be so well received and I am genuinely thankful for it.
-
-
-<script type="text/javascript" async
-
-src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
