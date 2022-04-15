@@ -1,6 +1,4 @@
-import kivy
 from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
@@ -8,10 +6,10 @@ from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty, BooleanProperty
 import json
-from functools import partial
+from kivy.uix.screenmanager import ScreenManager, Screen
+
 from database.db import DB
 from src.calcs import calc_new_score, calc_coop_scores
-from kivy.uix.screenmanager import ScreenManager, Screen
 
 # dependencies: kivy, pymongo
 
@@ -191,8 +189,6 @@ class MainWidget(Widget):
 
 
 class HeLOApp(App):
-    # username = "Public"
-    # password = "6h2WPva5g"
     auth = ""
     # in case user changed the username in the config file
     with open("config.json", "r") as config:
@@ -202,7 +198,9 @@ class HeLOApp(App):
         _cluster = config_data["mongodb"]["cluster"]
         _db = config_data["mongodb"]["db"]
         _collection = config_data["mongodb"]["collection"]
+    
     db = DB(username, password, _cluster, _db, _collection)
+
 
     def build(self):
         self.screen_manager = ScreenManager()

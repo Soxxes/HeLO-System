@@ -133,6 +133,8 @@ Scripts/
 Lib/
 pyvenv.cfg
 
+config.json
+
 bin/
 .spec
 android/
