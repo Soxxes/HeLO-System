@@ -3,6 +3,18 @@
 Hi, I'm glad you made it. :)
 I created an Elo-System for the competitive "Hell Let Loose" scene. Yes, there are competitive teams in the game. However, the strength of each team so far always had to be estimated. I'll give you a short introduction of **how** and **why** I created this.
 
+- [The HeLO-System](#the-helo-system)
+  - [What is an Elo System?](#what-is-an-elo-system)
+  - [What Factors influence the HeLO Score?](#what-factors-influence-the-helo-score)
+  - [Calculating the Probability of a Victory](#calculating-the-probability-of-a-victory)
+  - [Calculating the new HeLO Score](#calculating-the-new-helo-score)
+  - [Guessing the HeLO Score of a new Team](#guessing-the-helo-score-of-a-new-team)
+  - [Full Example](#full-example)
+  - [What if more than one team plays together?](#what-if-more-than-one-team-plays-together)
+- [Project Overview](#project-overview)
+  - [Current State (*deprecated*)](#current-state-deprecated)
+  - [Planned Features](#planned-features)
+
 <br />
 
 ## What is an Elo System?
@@ -94,19 +106,29 @@ The second option, easier and not so accurate, is leaving out the weights, compu
 
 <br />
 
-## Current State
+# Project Overview
+The HeLO-System has become more than just a hobby. I have created a whole project from it. Here is an overview:
+<br />
+
+<a><img src="https://s20.directupload.net/images/220415/5whdwwo2.png" title="Project Overview"></a>
+
+<br />
+
+## Current State (*deprecated*)
 At the moment there is a downloadable and executable desktop application. The main window looks like this:
 
 <img width="400" alt="image" src="https://user-images.githubusercontent.com/50017993/148366380-264d8521-8e13-414f-86ae-5e3dfbe466fc.PNG">
 
-Originally, the intention was to grant every team manager Superuser permissions, which are necessary to report game results. Additionally, users that do not have these permissions can request the scores of all teams. There is also some kind of security implemented (e.g. Superusers must authenticate themselves), but this is all rudimentary. I'll keep this section small, because I am currently working on major improvements (see "Planned Features"). Soon, all of this will be much better and easier to use.
+Originally, the intention was to grant every team manager Superuser permissions, which are necessary to report game results. Additionally, users that do not have these permissions can request the scores of all teams. There is also some kind of security implemented (e.g. Superusers must authenticate themselves). I'll keep this section small, because I am currently working on major improvements (see "Planned Features"). Soon, all of this will be much better and easier to use.
 
 <br />
 
 ## Planned Features
 The following features are either planned or already partially implemented:
-* **REST API** replacing the downloadable client
+* **REST API** replacing the downloadable client (see: https://github.com/Soxxes/HeLO-Server)
 * **Discord Bot** with various quality of life features (including easy reporting of game results, request of scores and statistics, simulation mode, betting system, ...)
 
-The Discord Bot's development branch (not public atm) currently runs on the HeLO-Discord: https://discord.gg/dmtcbrV7t5, feel free to join and stress test the bot. <br />
-As I write this, there are already 56 teams registered in the HeLO-System. The Discord has more than 240 members. I had no idea that the project would be so well received and I am genuinely thankful for it.
+The Discord Bot's development branch (not public atm) currently runs on my Raspberry Pi and there are not a lot of security mechanism (therefore not public). But you can use the Bot on the HeLO-Discord: https://discord.gg/dmtcbrV7t5, feel free to join and stress test him. <br />
+As I write this, there are already 62 teams registered in the HeLO-System. The Discord has more than 480 members. I had no idea that the project would be so well received and I am genuinely thankful for it.
+
+<br />
