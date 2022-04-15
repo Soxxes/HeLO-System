@@ -1,0 +1,332 @@
+# window for Superuser login and getting the checksum
+<SuperUserWindow>:
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+        padding: 10
+        spacing: 10
+
+        RelativeLayout:
+            orientation: "horizontal"
+            # go back to main window
+            Button:
+                on_press: root.on_back_button()
+                on_release: root.switch_to_main("Main")
+                size_hint: 0.25, 0.5
+                pos_hint: {"center_y": .5, "center_x": .25}
+                background_color: 0, 0, 0, 0
+                Image:
+                    id: back_home_button
+                    source: "fig/home2.png"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+            Label:
+                text: "Superuser Login"
+                pos_hint: {"center_y": .5, "center_x": .75}
+                text_size: self.size
+                font_size: "20dp"
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+
+        # Login for Superuser
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Username"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            TextInput:
+                id: username
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            Label:
+                text: "Password"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            TextInput:
+                id: password
+                password: True
+                password_mask: "*"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+        
+        # submit button for login
+        RelativeLayout:
+            Button:
+                text: "Submit"
+                on_release: root.submit(username.text.strip(), password.text.strip())
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+                size_hint: 0.4, 0.3
+                pos_hint: {"center_x": 0.5, "center_y": 0.75}
+
+        # CheckSum
+        GridLayout:
+            cols: 2
+            RelativeLayout:
+                Button:
+                    text: "Get Checksum"
+                    on_press: root.get_checksum(check_sum_label, app.auth)
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.4, 0.3
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            Label:
+                id: check_sum_label
+                text: ""
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+
+
+# mian window
+<MainWidget>:
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+        padding: 10
+        spacing: 10
+
+        Label:
+            text: "Welcome to the HeLO-System!"
+            size_hint: 0.1, 0.2
+            pos_hint: {"center_x": 0.5}
+            text_size: self.size
+            valign: "middle"
+            halign: "center"
+            font_name: "fonts/Eurostile.ttf"
+            bold: True
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.3
+            # displays the user currently logged in, default is Public
+            RelativeLayout:
+                Label:
+                    text: "current user:"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.4, 1
+                    pos_hint: {"center_x": 0.35, "center_y": 0.5}
+                Label:
+                    id: current_user
+                    text: app.username
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.4, 0.3
+                    pos_hint: {"center_x": 0.6, "center_y": 0.5}
+            # button to switch to Superuser window
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    on_release: root.switch_to_superuser_page("Superuser", auth.text.strip())
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.3, 0.6
+                    pos_hint: {"center_x": 0.25, "center_y": 0.5}
+
+                # coop mode
+                Label:
+                    text: "Coop Mode"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    pos_hint: {"center_x": 0.75, "center_y": 0.75}
+                CheckBox:
+                    id: coop_checkbox
+                    pos_hint: {"center_x": 0.75, "center_y": 0.35}
+                    size_hint: 0.15, 0.5
+
+        # all text inputs
+        GridLayout:
+            cols: 2
+            spacing: 5
+            size_hint: 1, 1.2
+            Label:
+                text: "Authentication code:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            TextInput:
+                id: auth
+                multiline: False
+                password: True
+                password_mask: "*"
+                #padding: [6, 6, 6, 6]
+                #disabled: root.superuser_disabled
+                font_name: "fonts/Eurostile.ttf"
+            Label:
+                text: "Name of Team 1:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            TextInput:
+                id: name_team_one
+                multiline: False
+                font_name: "fonts/Eurostile.ttf"
+            Label:
+                text: "Name of Team 2:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            TextInput:
+                id: name_team_two
+                multiline: False
+                font_name: "fonts/Eurostile.ttf"
+            Label:
+                text: "Score:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            
+            # game score
+            BoxLayout:
+                orientation: "horizontal"
+                TextInput:
+                    id: game_score1
+                    multiline: False
+                    font_name: "fonts/Eurostile.ttf"
+                Label:
+                    text: "-"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                TextInput:
+                    id: game_score2
+                    multiline: False
+                    font_name: "fonts/Eurostile.ttf"
+
+            # checksum
+            Label:
+                text: "Checksum of Opponent:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            TextInput:
+                id: check_sum_input
+                multiline: False
+                font_name: "fonts/Eurostile.ttf"
+            
+            # comp factor
+            Label:
+                text: "Competitive Factor"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            Spinner:
+                id: comp_factor_spinner
+                text: "competitve match"
+                values: ["friendly match (off season)", "friendly match (on season)", "competitive match", "competitive match (extra sweaty)"]
+                font_name: "fonts/Eurostile.ttf"
+                on_text: root.set_comp_factor(self)
+
+            # number of players
+            Label:
+                text: "Number of Players:"
+                text_size: self.size
+                valign: "middle"
+                halign: "center"
+                font_name: "fonts/Eurostile.ttf"
+            BoxLayout:
+                orientation: "horizontal"
+                Slider:
+                    id: number_of_players
+                    min: 3
+                    max: 50
+                    value: 50
+                    step: 1
+                    padding: 10
+                Label:
+                    id: number_of_players_label
+                    text: str(number_of_players.value)
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    size_hint: 0.5, 1
+
+        
+        # Buttons to get or send
+        GridLayout:
+            cols: 2
+            size_hint: 1, 0.8
+            RelativeLayout:
+                Button:
+                    # requires Authentication and Checksum
+                    text: "Calc & Send"
+                    size_hint: 0.4, 0.3
+                    on_release: root.calc_and_send(name_team_one.text.strip(), name_team_two.text.strip(), auth.text.strip(), game_score1.text.strip()+"-"+game_score2.text.strip(), check_sum_input.text.strip(), number_of_players.value, coop_checkbox.active)
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    pos_hint: {"center_x": 0.5, "center_y": 0.3}
+                Button:
+                    text: "Get HeLO Score"
+                    size_hint: 0.4, 0.3
+                    on_release: root.set_scores_label(name_team_one.text.strip(), name_team_two.text.strip())
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    pos_hint: {"center_x": 0.5, "center_y": 0.7}
+
+            # Labels for the (new) score
+            GridLayout:
+                cols: 2
+                Label:
+                    text: "HeLO Score Team 1:"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                Label:
+                    text: root.helo_score_team1
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    bold: True
+                Label:
+                    text: "HeLO Score Team 2:"
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                Label:
+                    text: root.helo_score_team2
+                    text_size: self.size
+                    valign: "middle"
+                    halign: "center"
+                    font_name: "fonts/Eurostile.ttf"
+                    bold: True
+        
+        Label:
+            text: "HeLO System by Soxxes | version 0.0.1"
+            font_size: "12dp"
+            size_hint: 1, 0.02
