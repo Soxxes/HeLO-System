@@ -79,7 +79,7 @@ New teams start with a HeLO score of 600. To be honest, there will be exceptions
 <br />
 
 ## Full Example
-Let's have a look at a realistic example. Team A (746) plays a competitive match (extra sweaty) against Team B (613). They play with 45 players on each side. Team A played more than 30 games, but Team B is relatively new on scene (played less than 30 games). Team B (everyone sympathizes for the underdog) wins with a score of 4-1.
+Let's have a look at a realistic example. Team A (746) plays a competitive match (extra sweaty) against Team B (613). They play with 45 players on each side. Team A played more than 30 games, but Team B is relatively new on scene (played less than 30 games). Team B (everyone sympathizes for the underdog) wins with a score of 5-0.
 
 1) Calculate the difference: D = 746 - 613 = 133
 2) Calculate the probability of winning for Team A: P(121) = 0.681
