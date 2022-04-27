@@ -96,8 +96,6 @@ We have multiple options here. The most intuitive one is to assign the score cha
 
 <img src="https://latex.codecogs.com/svg.image?\overline{x}&space;=&space;\sum_{i=1}^{n}w_i&space;x_i" title="\overline{x} = \sum_{i=1}^{n}w_i x_i" />
 
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/7VKnGS6/Be88c060f5ca72db536dae87d0e13b8a.png" alt="Be88c060f5ca72db536dae87d0e13b8a" border="0"></a>
-
 where the <i>**w**</i>s are the player fielded by a team normalized to the total number of players. <i>**x**</i> is then the score of the corresponding team. First good thing about this is we can calculate the new score of this specific cooperation with the average as it was the score of "normal" team. And second, we can assign the gain/loss of this game to the teams in the same manner. <br />
 
 <br />
