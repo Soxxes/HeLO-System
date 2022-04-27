@@ -1,7 +1,7 @@
 # The HeLO-System
 
 Hi, I'm glad you made it. :)
-I created an Elo-System for the competitive "Hell Let Loose" scene. Yes, there are competitive teams in the game. However, the strength of each team so far always had to be estimated. I'll give you a short introduction of **how** and **why** I created this.
+I created an Elo-System for the competitive "Hell Let Loose" scene. Yes, there are competitive teams in the game. However, the strength of each team so far always had to be estimated. I'll give you a short introduction of **how** and **why** I created this. The official website with statistics and other stuff that uses this system can be found [here](https://helo-system.de/).
 
 - [The HeLO-System](#the-helo-system)
   - [What is an Elo System?](#what-is-an-elo-system)
@@ -119,7 +119,7 @@ Originally, the intention was to grant every team manager Superuser permissions,
 
 ## Planned Features
 The following features are either planned or already partially implemented:
-* **REST API** replacing the downloadable client (see: https://github.com/Soxxes/HeLO-Server)
+* **REST API** replacing the downloadable client (see: https://github.com/HeLO-System/HeLO-Server)
 * **Discord Bot** with various quality of life features (including easy reporting of game results, request of scores and statistics, simulation mode, betting system, ...)
 
 The Discord Bot's development branch (not public atm) currently runs on my Raspberry Pi and there are not a lot of security mechanism (therefore not public). But you can use the Bot on the HeLO-Discord: https://discord.gg/dmtcbrV7t5, feel free to join and stress test him. <br />
