@@ -1,7 +1,6 @@
 # The HeLO-System
 
-Hi, I'm glad you made it. :)
-I created an Elo-System for the competitive "Hell Let Loose" scene. Yes, there are competitive teams in the game. However, the strength of each team so far always had to be estimated. I'll give you a short introduction of **how** and **why** I created this. The official website with statistics and other stuff that uses this system can be found [here](https://helo-system.de/).
+HeLO (Hell Let Loose Elo Score) is a system designed by me to rank competitive teams playing the realistic multiplayer World War Two combined arms first person shooter Hell Let Loose. I'll give you a short introduction of **how** and **why** I created this. The official website with statistics and other stuff that uses this system can be found [here](https://helo-system.de/).
 
 - [The HeLO-System](#the-helo-system)
   - [What is an Elo System?](#what-is-an-elo-system)
