@@ -18,21 +18,18 @@ I created an Elo-System for the competitive "Hell Let Loose" scene. Yes, there a
 <br />
 
 ## What is an Elo System?
-An Elo-System is a rating system, created in the 1970s by A. Elo. He designed it to rank chess players.
-If you have ever played chess online, you may have noticed this number after your name. That's your elo score.
-Have a look at: [Wikipedia](https://en.wikipedia.org/wiki/Elo_rating_system).
-
-I slightly adjusted this system and adapted it to HLL ... and I named it **HeLO score** (short for Hell Let Loose Elo Score).
+The Elo rating system is a method to calculate the relative skill levels of players in zero-sum games such as chess. It is named after its creator Arpad Elo, a Hungarian-American physics professor. If you have ever played chess online or in a competitive tournament you might be familiar with the concept. If not, you can read more about the system on [Wikipedia](https://en.wikipedia.org/wiki/Elo_rating_system).
 
 <br />
 
 ## What Factors influence the HeLO Score?
-If you don't have a basic knowledge of how elo systems work, please take a few minutes to read about them. In contrary to chess, the HeLO score depends not only on the final result of the game and your current score. <br />
-A victory in HLL can be a 5-0, 4-1 or 3-2. The latter is closer to a draw in chess than a win. Additionally, we don't rate players but whole teams. So another dependency is the number of players played in a certain game. Last, there are friendly matches and competitive matches between the teams. In my opinion that should be weighted differently, too. <br />
+In contrast to chess where you can either win, lose or draw, HLL offers additional outcomes determined by the amount of controlled cap points per team at the end of the match.
+
+There are three main factors influencing the HeLO-Score of a team:
 To summarize, there are three main factors:
 * the game result
 * the number of players
-* the competitve factor
+* the match type (competitive or regular)
 
 <br />
 
@@ -47,7 +44,7 @@ Let's dive a little bit deeper into the maths. Based on the current score of eac
 
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{\mathrm{erf}(\frac{D}{400})&plus;1}{2}" title="\bg_white P(D) = \frac{\mathrm{erf}(\frac{D}{400})+1}{2}" />
 
-where **erf(x)** is the Gaussian error function. That's basically it. Let's have a look at a small example. Team A (734) plays against team B (579). The difference is: D = 734 - 579 = 155. Now we just have to insert the numbers in the equation ... and P(D) = 0.708. What does this mean? It means that Team A will win the game with a probability of 70.8%. The probabilty for Team B to win is the counter-probability: 1 - P(D) = 0.292. <br />
+where **erf(x)** is the Gaussian error function. That's basically it. Let's have a look at a small example. Team A (734) plays against team B (579). The difference is: D = 734 - 579 = 155. Now we just have to insert the numbers in the equation ... and P(D) = 0.708. What does this mean? It means that Team A will win the game with a probability of 70.8%. The probabilty of Team B winning is the counter-probability: 1 - P(D) = 0.292. <br />
 Side information: In case the difference **D** should be greater than 400, the system will take 400 as the maximum. Otherwise, the score gain or loss would be either too significant or absolutely irrelevant.
 
 <br />
@@ -61,7 +58,7 @@ For that I copied the formula from chess, but adjusted a few factors (as mention
 
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;k&space;=&space;ac&space;\cdot&space;(log_{a}&space;\frac{N}{50}&space;&plus;&space;1)" title="\bg_white k = ac \cdot (log_{a} \frac{N}{50} + 1)" />
 
-* **a**: The "Number of Games" factor. a = 40 for less than 30 games played, a = 20 for more (or equal) than 30 games played
+* **a**: The "Number of Games" factor.  The default factor for the number of matches/games played is 40. If a team played more than 30 games, this factor changes to 20. It hasn't been mentioned yet, since its only purpose is to accelerate the settling process in order to calculate a reliable score faster.
 * **c**: The "Competitive" factor. Off seasonal time is during Christmas and New Year's eve, easter time and during the summer (1st of July until 31st of August).
     * friendly match (off seasonal): c = 0.5
     * friendly match (on seasonal): c = 0.8
@@ -94,15 +91,14 @@ So Team A loses 16 score points while Team B gains 32 score points for beating a
 <br />
 
 ## What if more than one team plays together?
-Glad you ask! This is called a <i>cooperation</i>. Cooperations can consist of teams fielding the same amount of players, e.g. 25 each, or different amounts of players, e.g. 15 and 35.<br />
-We have multiple options here. The most intuitive one is to assign the score gain or loss of that specific game according to the player distributions. And that is exactly what a weighted average does. Check this out:<br />
+This is called a cooperation. Cooperations can consist of teams fielding an equal amount of players, e.g. 25 each, or a different amount of players, e.g. 15 and 35.
+We have multiple options here. The most intuitive one is to assign the score changes of that specific game according to the player distributions. This is done by weighing the average. If the easier and less accurate option is used, the player distributions are ignored. The normal average is computed and score changes are shared equally among the participants of the cooperation. This will be used in case no player distributions are given. Check this out:<br />
 
 <img src="https://latex.codecogs.com/svg.image?\overline{x}&space;=&space;\sum_{i=1}^{n}w_i&space;x_i" title="\overline{x} = \sum_{i=1}^{n}w_i x_i" />
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/7VKnGS6/Be88c060f5ca72db536dae87d0e13b8a.png" alt="Be88c060f5ca72db536dae87d0e13b8a" border="0"></a>
 
 where the <i>**w**</i>s are the player fielded by a team normalized to the total number of players. <i>**x**</i> is then the score of the corresponding team. First good thing about this is we can calculate the new score of this specific cooperation with the average as it was the score of "normal" team. And second, we can assign the gain/loss of this game to the teams in the same manner. <br />
-The second option, easier and not so accurate, is leaving out the weights, computing a normal average and share the gain/loss equally among the participants of the cooperation. We use this in case no player distributions are given.
 
 <br />
 
