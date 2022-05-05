@@ -37,11 +37,6 @@ Let's dive a little bit deeper into the maths. Based on the current score of eac
 
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt" title="\bg_white P(D) = \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^D e^{-\frac{t^2}{2\sigma^2}} dt" />
 
-![eq1](https://latex.codecogs.com/svg.image?\bg{white}P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt#gh-light-mode-only)
-![eq1_dark](https://latex.codecogs.com/svg.image?\bg{black}P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt#gh-dark-mode-only)
-
-![eq1_test](https://latex.codecogs.com/svg.image?P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt#gh-dark-mode-only)
-
 <br />
 
 **D** is the difference between the scores of team 1 and team 2. The standard deviation is set to <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\sigma&space;=&space;200&space;\sqrt{2}" title="\bg_white \sigma = 200 \sqrt{2}" /> and the mean is 0. As promised, the integral mentioned above simplifies to:
