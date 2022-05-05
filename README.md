@@ -35,17 +35,20 @@ To summarize, there are three main factors:
 ## Calculating the Probability of a Victory
 Let's dive a little bit deeper into the maths. Based on the current score of each team, we need to know the probabilty of winning, which can be calculated by the following integral (don't worry, I will strongly simplify it):
 
-<img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt" title="\bg_white P(D) = \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^D e^{-\frac{t^2}{2\sigma^2}} dt" />
+<!-- <img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{1}{\sigma&space;\sqrt{2\pi}}&space;\int_{-\infty}^D&space;e^{-\frac{t^2}{2\sigma^2}}&space;dt" title="\bg_white P(D) = \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^D e^{-\frac{t^2}{2\sigma^2}} dt" /> -->
 
-![eq1_light](https://github.com/Soxxes/HeLO-System/blob/main/svgs/eq1_black.svg#gh-light-mode-only)
+![eq1_light](https://github.com/Soxxes/HeLO-System/blob/main/svgs/p_black.svg#gh-light-mode-only)
 
-![eq1_dark](https://github.com/Soxxes/HeLO-System/blob/main/svgs/eq1_white.svg#gh-dark-mode-only)
+![eq1_dark](https://github.com/Soxxes/HeLO-System/blob/main/svgs/p_white.svg#gh-dark-mode-only)
 
 <br />
 
 **D** is the difference between the scores of team 1 and team 2. The standard deviation is set to <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\sigma&space;=&space;200&space;\sqrt{2}" title="\bg_white \sigma = 200 \sqrt{2}" /> and the mean is 0. As promised, the integral mentioned above simplifies to:
 
-<img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{\mathrm{erf}(\frac{D}{400})&plus;1}{2}" title="\bg_white P(D) = \frac{\mathrm{erf}(\frac{D}{400})+1}{2}" />
+<!-- <img src="https://latex.codecogs.com/svg.image?\bg_white&space;P(D)&space;=&space;\frac{\mathrm{erf}(\frac{D}{400})&plus;1}{2}" title="\bg_white P(D) = \frac{\mathrm{erf}(\frac{D}{400})+1}{2}" /> -->
+
+![erf_light](https://github.com/Soxxes/HeLO-System/blob/main/svgs/erf_black.svg#gh-light-mode-only)
+![erf_dark](https://github.com/Soxxes/HeLO-System/blob/main/svgs/erf_white.svg#gh-dark-mode-only)
 
 where **erf(x)** is the Gaussian error function. That's basically it. Let's have a look at a small example. Team A (734) plays against team B (579). The difference is: D = 734 - 579 = 155. Now we just have to insert the numbers in the equation ... and P(D) = 0.708. What does this mean? It means that Team A will win the game with a probability of 70.8%. The probabilty of Team B winning is the counter-probability: 1 - P(D) = 0.292. <br />
 Side information: In case the difference **D** should be greater than 400, the system will take 400 as the maximum. Otherwise, the score gain or loss would be either too significant or absolutely irrelevant.
