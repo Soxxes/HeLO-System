@@ -128,7 +128,7 @@ $$
 \overline{x} \hspace{1mm} = \hspace{1mm} \sum_{i=1}^{n}w_i x_i
 $$
 
-where the $w_i$ are the player fielded by a team normalized to the total number of players. $x$ is then the score of the corresponding team. First good thing about this is we can calculate the new score of this specific cooperation with the average as it was the score of "normal" team. And second, we can assign the gain/loss of this game to the teams in the same manner. <br />
+where the $w_i$ are the player fielded by a team normalized to the total number of players. $x_i$ is then the score of the corresponding team. First good thing about this is that we can calculate the new score of this specific cooperation with the average as it was the score of a "normal" team. And second, we can assign the gain/loss of this game to the teams in the same manner. <br />
 
 <br />
 
