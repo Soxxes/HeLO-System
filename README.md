@@ -155,6 +155,6 @@ The following features are either planned or already partially implemented:
 * **Discord Bot** with various quality of life features (including easy reporting of game results, request of scores and statistics, simulation mode, betting system, ...)
 
 The Discord Bot's development branch (not public atm) currently runs on my Raspberry Pi and there are not a lot of security mechanism (therefore not public). But you can use the Bot on the HeLO-Discord: https://discord.gg/dmtcbrV7t5, feel free to join and stress test him. <br />
-As I write this, there are already 62 teams registered in the HeLO-System. The Discord has more than 480 members. I had no idea that the project would be so well received and I am genuinely thankful for it.
+There are already 67 teams registered in the HeLO-System. The Discord has more than 590 members. I had no idea that the project would be so well received and I am genuinely thankful for it.
 
 <br />
