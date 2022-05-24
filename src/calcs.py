@@ -85,18 +85,24 @@ def get_coop_scores(clan_scores1: list, clan_scores2: list, caps1: int, caps2: i
     """
     # note: amount factor (a) will be ignored here, default is 40
     # otherwise, these kind of games won't generate a significant score
+    # TODO: known issue: a coop game is also a game where only one clan plays against
+    # two or more clans, therefore the clan playing alone will be weighted with a = 40
+    # regardless of its number of games
     a = 40
 
+    # performs normal average
+    weights1 = np.ones(len(clan_scores1)) / len(clan_scores1)
+    weights2 = np.ones(len(clan_scores2)) / len(clan_scores2)
+
     # convert player distributions to numpy arrays and normalize
-    try:
-        # performs weighted average
+    if player_dist1:
+        # performs weighted average later
         weights1 = np.array(player_dist1) / sum(player_dist1)
-        weights2 = np.array(player_dist2) / sum(player_dist2)
         num_players = sum(player_dist1)
-    except TypeError:
-        # performs normal average
-        weights1 = np.ones(len(clan_scores1)) / len(clan_scores1)
-        weights2 = np.ones(len(clan_scores2)) / len(clan_scores2)
+    if player_dist2:
+        # performs weighted average later
+        weights2 = np.array(player_dist2) / sum(player_dist2)
+        num_players = sum(player_dist2)
 
     # calculate the (weighted) average score of the cooperations
     avg1 = np.average(clan_scores1, weights=weights1)
@@ -104,9 +110,8 @@ def get_coop_scores(clan_scores1: list, clan_scores2: list, caps1: int, caps2: i
 
     score1, score2, err = get_new_scores(avg1, avg2, caps1, caps2,
                                         c=c, number_of_players=num_players)
+    if err is not None: return None, None, err
     gain1, gain2 = score1 - avg1, score2 - avg2
-
-    print(gain1, gain2)
 
     # share the gain depending on the player distribution
     # if there is no player distribution, share equally
@@ -114,7 +119,7 @@ def get_coop_scores(clan_scores1: list, clan_scores2: list, caps1: int, caps2: i
     clan_scores1 = [round(cs + part * gain1) for cs, part in zip(clan_scores1, weights1)]
     clan_scores2 = [round(cs + part * gain2) for cs, part in zip(clan_scores2, weights2)]
 
-    return clan_scores1, clan_scores2
+    return clan_scores1, clan_scores2, err
 
 
 
