@@ -7,7 +7,7 @@ clan3 = 711
 clan4 = 578
 clan5 = 604
 
-coop1 = [clan2, clan3]          # in Germany we say: "Die guten ins Töpfchen ..."
+coop1 = [clan2, clan3]          # in Germany we say: "Die guten ins Töpfchen ..."     
 coop2 = [clan1, clan4, clan5]   # " ... die schlechten ins Kröpfchen"
 
 player_distribution1 = [30, 20]
